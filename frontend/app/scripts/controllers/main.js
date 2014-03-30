@@ -7,19 +7,22 @@ angular.module('awebApp')
       'AngularJS',
       'Karma'
     ];
+
     var currentNavItem = $routeParams.navItem;
 
     $scope.menuItems = [
       {'text':'First item', 'link':'first'},
       {'text':'Second item', 'link':'second'},
       {'text':'Third item', 'link':'third'},
-    ]
+    ];
+
     $scope.getCurrentNavItem = function(){
-      if(currentNavItem != null && currentNavItem != undefined){
+      if(currentNavItem !== null && currentNavItem !== undefined){
         return currentNavItem;
       }
       else{
-        return "Default"
+        return 'Default';
       }
-    }
+    };
+
   });

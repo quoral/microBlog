@@ -22,5 +22,5 @@ describe('Controller: MainCtrl', function () {
 
   it('true should be true', function(){
     expect(true).toBe(true);
-  })
+  });
 });
