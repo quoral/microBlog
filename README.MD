@@ -14,6 +14,8 @@ The server will be build upon Node.js express and socket.io. This is for the two
 I have also never done anything in Node previously, so this will be a new challange for me.
 ### Client Framework
 The client framework will be Angular.JS. The framework feels very natural to work with for me, and the small tests I've done, continue to verify this.
+
+For the styling, I've choosen a new framework called Semantic UI. [Semantic UI](http://semantic-ui.com)
 ### Storage
 Storage framework will probably be Sequelize, an ORM built on Node.JS that supports MySQL, PostgreSQL and more.
 ### Authentication
