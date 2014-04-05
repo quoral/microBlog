@@ -9,6 +9,7 @@ var pathToModule = function(path) {
 
 Object.keys(window.__karma__.files).forEach(function(file) {
   'use strict';
+  //LIB_REGEXP is needed for paths to client/lib that does not contain tests.
   if (TEST_REGEXP.test(file) && !LIB_REGEXP.test(file)) {
     // Normalize paths to RequireJS module names.
     allTestFiles.push(file);
