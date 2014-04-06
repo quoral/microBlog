@@ -1,8 +1,22 @@
-<p>
-  This is a scope for our current scope.
-</p>
-<p>
-  In order to prove this, here's a variable from within the scope {{hi}}
-</p>
-<input type="text" ng-model="hi">
-<input type="text" ng-model="hi">
+
+<form ng-submit="postText = addPost(postText)">
+  <div class="ui input">
+    <input type="text" ng-model="postText">
+  </div>
+
+  <input class="ui button" type="submit" value="add">
+</form>
+
+<div class="ui list">
+  <div ng-repeat="post in posts" class="item">
+
+    <div class="content">
+      <div class="header">
+        Wat - {{post.id}}
+      </div>
+      <div class="description">
+        {{post.text}}
+        <i class="trash icon" ng-click="removePost(post.id)"></i>
+      </div>
+    </div>
+</div>
