@@ -1,10 +1,13 @@
 
-<form ng-submit="postText = addPost(postText)">
+<form name="postForm" novalidate >
   <div class="ui input">
-    <input type="text" ng-model="postText">
+    <input type="text" name="postText" ng-model="postText" required>
   </div>
 
-  <input class="ui button" type="submit" value="add">
+  <button class="ui button {{postForm.$invalid ? 'disabled' : ''}}"
+         type="submit"
+         ng-click="postText = addPost(postText)"
+         ng-disabled="postForm.$invalid">ADD</button>
 </form>
 
 <div class="ui list">
@@ -16,7 +19,7 @@
       </div>
       <div class="description">
         {{post.text}}
-        <i class="trash icon" ng-click="removePost(post.id)"></i>
+        <div class="ui icon button"><i class="trash icon" ng-click="removePost(post.id)"></i></div>
       </div>
     </div>
 </div>
