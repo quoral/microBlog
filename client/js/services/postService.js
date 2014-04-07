@@ -2,6 +2,7 @@ define([''], function(){
   'use strict';
     return [function(){
       var posts = [];
+      var nextId = 0;
       return {
         get: function(id){
           return posts[id];
@@ -12,7 +13,8 @@ define([''], function(){
         post: function(postData){
           var post = {};
           post.text = postData.text;
-          post.id = posts.push(post)-1;
+          posts.push(post);
+          post.id = nextId++;
           return post;
         },
         delete: function(id){
