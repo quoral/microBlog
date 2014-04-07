@@ -1,12 +1,24 @@
 'use strict';
 
+var express = require('express'),
+    config = require('./server/config/config');
 
 
-var config = require('./server/config/config');
-var app = require('./server/config/bootstrap')();
 
+var app = express();
 
-app.listen(config.port);
-console.log('Express app started on port ' + config.port);
+require('./server/config/express')(app);
+
+var db = require('./server/config/sequelize');
+
+db.sequelize.complete(function(err){
+  if(!!err){
+    console.log('Unable to connect to the db:', err);
+  } else{
+    app.listen(config.port);
+    console.log('Server started on port', config.port);
+  }
+});
+
 
 exports = module.exports = app;
