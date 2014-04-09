@@ -26,6 +26,8 @@ var walk = function(path){
 walk(modelsPath);
 
 
+//sequelize.sync({force:true});
+
 
 
 module.exports.sequelize = sequelize.authenticate();
