@@ -12,7 +12,7 @@
 
 <div class="ui raised segment">
 <div class="ui list ">
-  <div ng-repeat="post in posts" class="item" >
+  <div ng-repeat="post in posts | orderBy:'createdAt':true" class="item" >
     <div class="red ui icon button" ng-click="removePost(post.id)"><i class="trash icon" ></i></div>
 
     <div class="content">
