@@ -6,11 +6,8 @@ define([''], function(){
                 return $http.get('/rest/auth/isAuthenticated');
             },
             logout: function(){
-                return $http.get('(rest/auth/logout');
+                return $http.get('/rest/auth/logout');
             },
-            login: function(){
-                return $http.get('/rest/login');
-            }
         };
     }];
 });

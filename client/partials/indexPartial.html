@@ -1,6 +1,7 @@
 <div ng-controller="IndexCtrl">
   <div class="ui raised segment mainSegment">
     <a ng-if="!currentUser" class="ui button" ng-click="login()">Login</a>
+    <a ng-if="currentUser" class="ui button" ng-click="logout()">Logout</a>
     <form name="postForm" novalidate >
       <div class="ui input">
         <input type="text" name="postText" ng-model="postText" required>

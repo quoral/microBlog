@@ -11,9 +11,14 @@ define([], function(){
         $scope.updateInfo();
         $scope.login = function login(){
             $window.location.href = '/rest/auth/facebook';
-        }
+        };
+        $scope.logout = function(){
+            authService.logout()
+                .success(function(data, status){
+                    $scope.currentUser = undefined;
+                });
+        };
         $scope.$on('auth:adminRequired', function(scope, message){
-            login();
         });
         $scope.$apply();
     }];
