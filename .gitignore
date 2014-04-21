@@ -10,3 +10,4 @@ test/coverage/
 modules/client/
 modules/views/
 /client/build/
+server/config/credentials.js
