@@ -1,18 +1,19 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes){
-  var Post = sequelize.define('Post', {
-    text: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    }
-  }, {
+    var Post = sequelize.define('Post', {
+        text: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        }
+    }, {
 
-  });
-  return Post;
+    });
+    Post.sync();
+    return Post;
 };

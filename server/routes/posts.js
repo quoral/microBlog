@@ -1,22 +1,11 @@
 'use strict';
+
+var auth = require('./middlewares/auth');
+
 module.exports = function(app, passport){
     var Post = app.get('models').Post;
-
-    var authFunction = function(req, res, next, func){
-        console.log('Attempting to authenticate');
-        passport.authenticate('basic', { session: false }, function(err, user, info){
-            if(err){
-                return next(err);
-            }
-            if(!user){
-                res.send(401);
-                return;
-            }
-            func(req,res,next);
-        })(req,res,next);
-    };
-
-    app.post('/rest/posts', function(req, res, next){
+    
+    app.post('/rest/posts', auth.requiresLogin, function(req, res, next){
         var post = Post.build(req.body);
         console.log('Entered posting');
         post.save()
@@ -55,7 +44,7 @@ module.exports = function(app, passport){
             });
     });
 
-    app.del('/rest/posts/:id', function(req, res, next){
+    app.del('/rest/posts/:id', auth.requiresLogin, function(req, res, next){
         Post.find(req.params.id)
             .success(function(singlePost){
                 if(singlePost === null){

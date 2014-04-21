@@ -23,13 +23,12 @@ module.exports = function(app, db, passport){
         app.use(express.bodyParser());
         app.use(express.urlencoded());
         app.use(express.json());
-        
+        app.use(express.session({ secret: 'SECRET' }));
+        app.use(express.cookieParser());
+
         app.use(passport.initialize());
         app.use(passport.session());
         
-        app.use(function(req,res,next){
-            next();
-        });
 
 
         // app.use(expressValidator());

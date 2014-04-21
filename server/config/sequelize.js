@@ -25,9 +25,7 @@ var walk = function(path){
 };
 walk(modelsPath);
 
-
-//sequelize.sync({force:true});
-
-
+// Create assocations
+module.exports.models.User.hasMany(module.exports.models.Post, {as: 'Posts'});
 
 module.exports.sequelize = sequelize.authenticate();
