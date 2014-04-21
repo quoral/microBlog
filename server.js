@@ -15,7 +15,8 @@ db.sequelize.complete(function(err){
   if(!!err){
     console.log('Unable to connect to the db:', err);
   } else{
-    require('./server/config/express')(app, db);
+    var passport = require('./server/config/passport')(db);
+    require('./server/config/express')(app, db, passport);
     app.listen(config.port);
     console.log('Server started on port', config.port);
   }

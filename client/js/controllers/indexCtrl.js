@@ -1,7 +1,6 @@
 define([], function(){
     'use strict';
     return ['$scope', 'postService', function($scope, postService){
-        $scope.hi = 'wat';
         $scope.addPost = function(postText){
             postService.post({text:postText})
                 .success(function(data, status){
