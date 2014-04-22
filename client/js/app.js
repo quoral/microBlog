@@ -5,7 +5,7 @@ define([
     'controllers',
     'config',
     'angularRoute',
-], function(angular, services, directives, controllers, config){
+], function(angular, services, directives, controllers, config, angularRoute){
     'use strict';
     var app = angular.module('microBlog', [
         'ngRoute',

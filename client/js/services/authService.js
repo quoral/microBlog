@@ -3,7 +3,7 @@ define([''], function(){
     return ['$http', function($http){
         return {
             getUserInfo: function(){
-                return $http.get('/rest/auth/isAuthenticated');
+                return $http.get('/rest/auth/thisUser');
             },
             logout: function(){
                 return $http.get('/rest/auth/logout');

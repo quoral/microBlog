@@ -3,9 +3,15 @@ define(['angular', 'services'], function(angular, services) {
 
     /* Directives */
     angular.module('microBlog.directives', ['microBlog.services'])
-        .directive('post', [function() {
-            return function(scope, elm, attrs) {
-                elm.text('wat');
+        .directive('loginButtons', [function() {
+            return {
+                restrict: 'E',
+                templateUrl: 'client/partials/login-buttons-template.html',
+                controller: ['$scope', '$window', function($scope, $window){
+                    $scope.login = function(provider){
+                        $window.location.href = '/rest/auth/' + provider;
+                    };
+                }]
             };
         }]);
 });

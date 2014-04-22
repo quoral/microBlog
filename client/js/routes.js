@@ -8,7 +8,6 @@ define(['angular', 'app'], function(angular, app){
         });
 	$routeProvider.otherwise({redirectTo: '/'});
 
-
         $locationProvider.html5Mode(true);
     }]);
 });
