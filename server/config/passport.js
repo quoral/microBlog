@@ -1,5 +1,6 @@
 var passport = require('passport'),
     FacebookStrategy = require('passport-facebook').Strategy,
+    TwitterStrategy = require('passport-twitter').Strategy,
     credentials = require('./credentials');
 
 module.exports = function(db){
@@ -23,6 +24,26 @@ module.exports = function(db){
                                      });
                              })
     );
+
+    passport.use(
+        new TwitterStrategy(credentials.twitter,
+                             function(accessToken, refreshToken, profile, done){
+                                 var searchObj = {
+                                     username: profile.id,
+                                     provider: profile.provider,
+                                     providerId: profile.id,
+                                     name: profile.displayName,
+                                 };
+                                 User.findOrCreate(searchObj)
+                                     .success(function(user, created){
+                                         done(null, user);
+                                     })
+                                     .error(function(err){
+                                         done(err);
+                                     });
+                             })
+    );
+
 
     passport.serializeUser(function(user, done) {
         done(null, user.id);

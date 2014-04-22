@@ -6,6 +6,11 @@ module.exports = function(sequelize, DataTypes){
             allowNull: false,
             unique: true,
         },
+        isPoster: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
+        },
         provider:{
             type: DataTypes.STRING,
             allowNull: false,
@@ -25,7 +30,6 @@ module.exports = function(sequelize, DataTypes){
     }, {
         
     });
-    User.sync();
     return User;
 
 };

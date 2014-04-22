@@ -17,7 +17,7 @@ db.sequelize.complete(function(err){
   } else{
     var passport = require('./server/config/passport')(db);
     require('./server/config/express')(app, db, passport);
-    app.listen(config.port);
+    app.listen(config.port, '127.0.0.1');
     console.log('Server started on port', config.port);
   }
 });

@@ -10,8 +10,17 @@ module.exports = function(app, passport){
                                                 failureRedirect: '/login' }
                                  )
            );
+
+    app.get('/rest/auth/twitter', passport.authenticate('twitter'));
+
+    app.get('/rest/auth/twitter/callback',
+            passport.authenticate('twitter', { successRedirect: '/',
+                                                failureRedirect: '/login' }
+                                 )
+           );
+
     
-    app.get('/rest/auth/isAuthenticated', auth.requiresLogin, function(req, res){
+    app.get('/rest/auth/thisUser', auth.requiresLogin, function(req, res){
         res.send(req.user.dataValues);
     });
     

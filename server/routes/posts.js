@@ -5,7 +5,7 @@ var auth = require('./middlewares/auth');
 module.exports = function(app, passport){
     var Post = app.get('models').Post;
     
-    app.post('/rest/posts', auth.requiresLogin, function(req, res, next){
+    app.post('/rest/posts', [auth.requiresLogin, auth.requiresPosting], function(req, res, next){
         var post = Post.build(req.body);
         console.log('Entered posting');
         post.save()
