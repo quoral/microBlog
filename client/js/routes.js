@@ -6,6 +6,10 @@ define(['angular', 'app'], function(angular, app){
             templateUrl: 'client/partials/indexPartial.html',
             controller: 'MainCtrl'
         });
+        $routeProvider.when('/admin', {
+            templateUrl: 'client/partials/adminPartial.html',
+            controller: 'MainCtrl'
+        });
 	$routeProvider.otherwise({redirectTo: '/'});
 
         $locationProvider.html5Mode(true);

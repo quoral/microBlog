@@ -1,33 +1,27 @@
 <div ng-controller="IndexCtrl">
+  <mb-menu></mb-menu>
   <div class="ui raised segment mainSegment">
-    <login-buttons ng-if="!currentUser"> </login-buttons>
-    <a ng-if="currentUser" class="ui button" ng-click="logout()">Logout</a>
     <form ng-if="currentUser.isPoster" name="postForm"  novalidate >
       <div class="ui input">
         <input type="text" name="postText" ng-model="postText" required>
+        <input type="text" name="postHeader" ng-model="postHeader" required>
       </div>
       <button class="{{postForm.$invalid ? 'disabled' : ''}} green ui button "
               type="submit"
-              ng-click="postText = addPost(postText)"
+              ng-click="postText = addPost(postText, postHeader)"
               ng-disabled="postForm.$invalid">ADD</button>
     </form>
 
     <div class="ui raised segment">
-      <div class="ui list ">
-        <div ng-repeat="post in posts | orderBy:'createdAt':true" class="item" >
-          <div ng-if="currentUser.isPoster" class="red ui icon button" ng-click="removePost(post.id)"><i class="trash icon" ></i></div>
-
-          <div class="content">
-            <div class="header">
-              Header placeholder
-            </div>
-            <div class="description">
-              {{post.text}}
-            </div>
-            <div class="ui divider"></div>
-          </div>
+      <div ng-repeat="post in posts | orderBy:'createdAt':true" class="ui segment" >
+        <div class="ui header">
+          {{post.header}}
         </div>
+        {{post.text}}
+        <div ng-if="currentUser.isPoster" class="ui right floated red icon button" ng-click="removePost(post.id)"><i class="trash icon" ></i></div>
+
       </div>
     </div>
   </div>
 </div>
+

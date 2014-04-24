@@ -1,8 +1,8 @@
 define([], function(){
     'use strict';
     return ['$scope', 'postService', function($scope, postService){
-        $scope.addPost = function(postText){
-            postService.post({text:postText})
+        $scope.addPost = function(postText, postHeader){
+            postService.post({text:postText, header: postHeader})
                 .success(function(data, status){
                     //Add the post to the correct position
                     $scope.posts.push(data);
@@ -12,6 +12,7 @@ define([], function(){
                 });
             return '';
         };
+
         $scope.updatePosts = function(){
             postService.getAll()
                 .success(function(data, status){
@@ -21,10 +22,11 @@ define([], function(){
                     console.log('Failed to update posts', status);
                 });
         };
+
         $scope.removePost = function(id){
             postService.delete(id)
                 .success(function(data, status){
-                    // This, this can give sync-issues later on.
+                    // This can give sync-issues later on.
                     // could be improved by using a periodic 
                     // polling in order to see if new items are added.
                     // Or simply by using the emitting functionality of websockets later on.
@@ -41,6 +43,7 @@ define([], function(){
                     console.log('Failed to remove post', status);
                 });
         };
+
         //Get the posts.
         $scope.updatePosts();
         //This is needed since the controller is loaded asynchroneusly.
