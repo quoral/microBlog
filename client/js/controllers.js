@@ -15,5 +15,11 @@ define(['angular'], function(angular){
             require(['controllers/adminCtrl'], function(AdminCtrl){
                 $injector.invoke(AdminCtrl, this, {'$scope': $scope});
             });
+        }])
+        .controller('ProfileCtrl', ['$scope', '$injector', function($scope, $injector){
+            require(['controllers/profileCtrl'], function(ProfileCtrl){
+                $injector.invoke(ProfileCtrl, this, {'$scope': $scope});
+            });
         }]);
+
 });

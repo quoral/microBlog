@@ -1,0 +1,36 @@
+<div ng-controller="ProfileCtrl">
+  <mb-menu></mb-menu>
+  <div class="ui raised segment mainSegment">
+    <div class="ui raised segment">
+      <h2 class="ui header">Profile Page</h2>
+      
+      <form>
+        <div class="ui form">
+          <div class="two fields">
+            <div class="inline field">
+              <div class="ui input">
+                <label for="username">Username </label>
+                <input type="text" id="username" ng-model="currentUser.username"></input>
+              </div>
+            </div>
+            <div class="inline field">
+              <div class="ui input">
+                <label for="name">Name </label>
+                <input type="text" id="name" ng-model="currentUser.name"></input>
+              </div>
+            </div>
+          </div>
+          <div class="inline field">
+            <div class="ui toggle checkbox">
+              <input id="isPoster" type="checkbox" ng-model="currentUser.isPoster"/>
+              <label for="isPoster">Is Poster</label>
+            </div>
+            <div class="ui toggle checkbox">
+              <input id="isAdmin" type="checkbox" ng-model="currentUser.isAdmin"/>
+              <label for="isAdmin">Is Admin</label>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,11 +1,17 @@
 <div class="ui menu">
+
   <a class="{{isActive('/') ? 'active' : ''}} item" href="/">
     <i class="home icon"></i> Home
   </a>
+
   <a class="{{isActive('/admin') ? 'active' : ''}} item" href="/admin">
     <i class="mail icon"></i> Admin
   </a>
-  
+
+  <a class="{{isActive('/profile') ? 'active' : ''}} item" href="/profile">
+    <i class="user icon"></i> Profile  
+  </a>
+
 
   <div class="right menu">
     <mb-login-buttons ng-if="!currentUser"> </mb-login-buttons>
