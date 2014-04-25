@@ -1,17 +1,20 @@
 <div ng-controller="IndexCtrl">
   <mb-menu></mb-menu>
   <div class="ui raised segment mainSegment">
-    <form ng-if="currentUser.isPoster" name="postForm"  novalidate >
-      <div class="ui input">
-        <input type="text" name="postText" ng-model="postText" required>
+    <div ng-form class="ui form" ng-hide="!currentUser.isPoster" name="postForm"  novalidate >
+      <div class="input">
         <input type="text" name="postHeader" ng-model="postHeader" required>
+      </div>
+      <div class="field">
+        <textarea name="postText" ng-model="postText"></textarea>
       </div>
       <button class="{{postForm.$invalid ? 'disabled' : ''}} green ui button "
               type="submit"
-              ng-click="postText = addPost(postText, postHeader)"
+              ng-click="addPost(postText, postHeader)"
               ng-disabled="postForm.$invalid">ADD</button>
-    </form>
-
+      {{console.log(postForm)}}
+    </div>
+    
     <div class="ui raised segment">
       <div ng-repeat="post in posts | orderBy:'createdAt':true" class="ui segment" >
         <div class="ui header">

@@ -1,17 +1,23 @@
 define([], function(){
     'use strict';
     return ['$scope', 'postService', function($scope, postService){
+        $scope.clearForm = function(){
+            $scope.postHeader = '';
+            $scope.postText = '';
+            $scope.postForm.$setPristine();
+        };
         $scope.addPost = function(postText, postHeader){
             postService.post({text:postText, header: postHeader})
                 .success(function(data, status){
                     //Add the post to the correct position
                     $scope.posts.push(data);
+                    $scope.clearForm();
                 })
                 .error(function(data, status){
                     console.log('Failed adding post', status);
                 });
-            return '';
         };
+
 
         $scope.updatePosts = function(){
             postService.getAll()
