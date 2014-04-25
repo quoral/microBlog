@@ -3,10 +3,10 @@
   <div class="ui raised segment mainSegment">
     <div ng-form class="ui form" ng-hide="!currentUser.isPoster" name="postForm"  novalidate >
       <div class="input">
-        <input type="text" name="postHeader" ng-model="postHeader" required>
+        <input type="text" name="postHeader" ng-model="postHeader" placeholder="Post Title" required>
       </div>
       <div class="field">
-        <textarea name="postText" ng-model="postText"></textarea>
+        <textarea name="postText" ng-model="postText" placeholder="Post Text" required></textarea>
       </div>
       <button class="{{postForm.$invalid ? 'disabled' : ''}} green ui button "
               type="submit"
