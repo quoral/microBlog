@@ -23,6 +23,7 @@ define([], function(){
             postService.getAll()
                 .success(function(data, status){
                     $scope.posts = data;
+                    console.log(data);
                 })
                 .error(function(data, status){
                     console.log('Failed to update posts', status);

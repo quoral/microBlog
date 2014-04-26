@@ -4,15 +4,15 @@ define(['angular', 'app'], function(angular, app){
     return app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
         $routeProvider.when('/', {
             templateUrl: 'client/partials/indexPartial.html',
-            controller: 'MainCtrl'
+            controller: 'IndexCtrl'
         });
         $routeProvider.when('/admin', {
             templateUrl: 'client/partials/adminPartial.html',
-            controller: 'MainCtrl'
+            controller: 'AdminCtrl'
         });
         $routeProvider.when('/profile', {
             templateUrl: 'client/partials/profilePartial.html',
-            controller: 'MainCtrl'
+            controller: 'ProfileCtrl'
         });
 	$routeProvider.otherwise({redirectTo: '/'});
 
