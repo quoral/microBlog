@@ -8,14 +8,14 @@
           <div class="two fields">
             <div class="inline field">
               <div class="ui input">
-                <label for="username">Username </label>
-                <input type="text" id="username" ng-model="user.username"></input>
+                <label for="username{{user.id}}">Username </label>
+                <input type="text" id="username{{user.id}}" ng-model="user.username"></input>
               </div>
             </div>
             <div class="inline field">
               <div class="ui input">
-                <label for="name">Name </label>
-                <input type="text" id="name" ng-model="user.name"></input>
+                <label for="name{{user.id}}">Name </label>
+                <input type="text" id="name{{user.id}}" ng-model="user.name"></input>
               </div>
             </div>
           </div>
