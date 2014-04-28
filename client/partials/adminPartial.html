@@ -21,12 +21,12 @@
           </div>
           <div class="inline field">
             <div class="ui toggle checkbox">
-              <input id="isPoster" type="checkbox" ng-model="user.isPoster"/>
-              <label for="isPoster">Is Poster</label>
+              <input id="isPoster{{user.id}}" type="checkbox" ng-model="user.isPoster"/>
+              <label for="isPoster{{user.id}}">Is Poster</label>
             </div>
             <div class="ui toggle checkbox">
-              <input id="isAdmin" type="checkbox" ng-model="user.isAdmin"/>
-              <label for="isAdmin">Is Admin</label>
+              <input id="isAdmin{{user.id}}" type="checkbox" ng-model="user.isAdmin"/>
+              <label for="isAdmin{{user.id}}">Is Admin</label>
             </div>
           </div>
         </div>
