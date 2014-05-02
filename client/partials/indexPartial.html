@@ -1,6 +1,6 @@
 <mb-menu></mb-menu>
 <div class="ui raised segment mainSegment">
-  <div ng-form class="ui form" ng-hide="!currentUser.isPoster" name="postForm"  novalidate >
+  <div ng-form class="ui form" ng-hide="!roleIsAuthenticated(currentUser.role, roles.poster)" name="postForm"  novalidate >
     <div class="input">
       <input type="text" name="postHeader" ng-model="postHeader" placeholder="Post Title" required>
     </div>
@@ -20,7 +20,7 @@
         {{post.header}}
       </div>
       {{post.text}}
-      <div ng-if="currentUser.isPoster" class="ui right floated red icon button" ng-click="removePost(post.id)"><i class="trash icon" ></i></div>
+      <div ng-if="roleIsAuthenticated(currentUser.role, roles.poster)" class="ui right floated red icon button" ng-click="removePost(post.id)"><i class="trash icon" ></i></div>
 
     </div>
   </div>

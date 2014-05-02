@@ -1,11 +1,9 @@
 define([], function(){
     'use strict';
     return ['$scope', 'authService', '$window', function($scope, authService, $window){
-        $scope.currentUser = null;
         $scope.updateInfo = function updateInfo(){
             authService.getUserInfo()
                 .success(function(data, status){
-                    console.log(data);
                     $scope.currentUser = data;
                 });
         };
@@ -15,6 +13,8 @@ define([], function(){
                     $scope.currentUser = null;
                 });
         };
+        $scope.roleIsAuthenticated = authService.roleIsAuthenticated;
+        $scope.roles = authService.roles;
         $scope.updateInfo();
         $scope.$apply();
     }];
