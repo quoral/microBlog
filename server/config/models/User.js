@@ -6,10 +6,10 @@ module.exports = function(sequelize, DataTypes){
             allowNull: false,
             unique: true,
         },
-        isPoster: {
-            type: DataTypes.BOOLEAN,
+        role: {
+            type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: false,
+            defaultValue: 'USER',
         },
         provider:{
             type: DataTypes.STRING,

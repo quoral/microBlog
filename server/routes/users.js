@@ -1,14 +1,13 @@
 'use strict';
 var auth = require('./middlewares/auth');
+var userRoles = require('../config/config').userRoles;
+
 module.exports = function(app, passport){
     var User = app.get('models').User;
-    
-    console.log(User);
     
     app.get('/rest/users', function(req, res){
         User.all()
             .success(function(users){
-                console.log(users);
                 res.send(JSON.stringify(users));
             })
             .error(function(err){
@@ -32,7 +31,7 @@ module.exports = function(app, passport){
             });
     });
 
-    app.del('/rest/users/:id', auth.requiresLogin, function(req, res, next){
+    app.del('/rest/users/:id', [auth.requiresLogin, auth.requiresRole(userRoles.admin)], function(req, res, next){
         User.find(req.params.id)
             .success(function(singlePost){
                 if(singlePost === null){

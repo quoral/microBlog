@@ -1,11 +1,11 @@
 'use strict';
 
 var auth = require('./middlewares/auth');
-
+var userRoles = require('../config/config').userRoles;
 module.exports = function(app, passport){
     var Post = app.get('models').Post;
     
-    app.post('/rest/posts', [auth.requiresLogin, auth.requiresPosting], function(req, res, next){
+    app.post('/rest/posts', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res, next){
         var post = Post.build(req.body);
         console.log('Entered posting');
         post.save()
@@ -44,7 +44,7 @@ module.exports = function(app, passport){
             });
     });
 
-    app.del('/rest/posts/:id', auth.requiresLogin, function(req, res, next){
+    app.del('/rest/posts/:id', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res, next){
         Post.find(req.params.id)
             .success(function(singlePost){
                 if(singlePost === null){

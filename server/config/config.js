@@ -7,6 +7,11 @@ module.exports = {
     root: rootPath,
     port: process.env.PORT || 8081,
     templateEngine: 'swig',
+    userRoles: {
+        admin: 'ADMIN',
+        poster: 'POSTER',
+        user: 'USER'
+    },
     db: {
         dbName: 'microblog',
         username: 'root',

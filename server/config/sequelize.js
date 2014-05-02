@@ -28,6 +28,6 @@ walk(modelsPath);
 // Create assocations
 module.exports.models.User.hasMany(module.exports.models.Post, {as: 'Posts'});
 if(sequelize.sync()){
-    console.error('Sequelize cannot sync :(');
+    sequelize.sync({force:true});
 }
 module.exports.sequelize = sequelize.authenticate();
