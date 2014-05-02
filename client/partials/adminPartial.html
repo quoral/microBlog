@@ -19,14 +19,24 @@
               </div>
             </div>
           </div>
-          <div class="inline field">
-            <div class="ui toggle checkbox">
-              <input id="isPoster{{user.id}}" type="checkbox" ng-model="user.isPoster"/>
-              <label for="isPoster{{user.id}}">Is Poster</label>
+          <div class="grouped inline fields">
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input id="roleUser{{user.id}}" type="radio" ng-model="user.role" value="USER"/>
+                <label for="roleUser{{user.id}}">Is User</label>
+              </div>
             </div>
-            <div class="ui toggle checkbox">
-              <input id="isAdmin{{user.id}}" type="checkbox" ng-model="user.isAdmin"/>
-              <label for="isAdmin{{user.id}}">Is Admin</label>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input id="rolePoster{{user.id}}" type="radio" ng-model="user.role" value="POSTER"/>
+                <label for="rolePoster{{user.id}}">Is Poster</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input id="roleAdmin{{user.id}}" type="radio" ng-model="user.role" value="ADMIN"/>
+                <label for="roleAdmin{{user.id}}">Is Admin</label>
+              </div>
             </div>
           </div>
         </div>
