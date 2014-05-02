@@ -3,32 +3,28 @@
   <div class="ui raised segment">
     <h2 class="ui header">Profile Page</h2>
     
-    <form>
+    <form name="profileForm" ng-submit="save()" novalidate>
       <div class="ui form">
         <div class="two fields">
+
           <div class="inline field">
             <div class="ui input">
               <label for="username">Username </label>
-              <input type="text" id="username" ng-model="currentUser.username"></input>
+              <input type="text" id="username" ng-model="currentUser.username" placeholder="Username" required>
             </div>
           </div>
+
           <div class="inline field">
             <div class="ui input">
               <label for="name">Name </label>
-              <input type="text" id="name" ng-model="currentUser.name"></input>
+              <input type="text" id="name" ng-model="currentUser.name" placeholder="Name">
             </div>
           </div>
+          <div ng-click="save(currentUser.username, currentUser.name)" class="ui green button"><i class="save icon"></i>Save User Info</div>
+          <div ng-click="remove()" class="ui floated right red button"><i class="remove sign icon"></i>Delete User</div>
         </div>
-        <div class="inline field">
-          <div class="ui toggle checkbox">
-            <input id="isPoster" type="checkbox" ng-model="currentUser.isPoster"/>
-            <label for="isPoster">Is Poster</label>
-          </div>
-          <div class="ui toggle checkbox">
-            <input id="isAdmin" type="checkbox" ng-model="currentUser.isAdmin"/>
-            <label for="isAdmin">Is Admin</label>
-          </div>
-        </div>
+        
       </div>
+    </form>
   </div>
 </div>

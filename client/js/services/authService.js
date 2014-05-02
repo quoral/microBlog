@@ -5,6 +5,9 @@ define([''], function(){
             getUserInfo: function(){
                 return $http.get('/rest/auth/thisUser');
             },
+            editUserInfo: function(postData){
+                return $http.put('/rest/auth/thisUser', postData);
+            },
             logout: function(){
                 return $http.get('/rest/auth/logout');
             },
