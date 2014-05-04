@@ -9,15 +9,34 @@ module.exports = function(db){
     passport.use(
         new FacebookStrategy(credentials.facebook,
                              function(accessToken, refreshToken, profile, done){
+                                 
                                  var searchObj = {
-                                     username: profile.id,
+                                     where: {
+                                         provider: profile.provider,
+                                         providerId: profile.id,
+                                     }
+                                 };
+                                 var createObj = {
                                      provider: profile.provider,
                                      providerId: profile.id,
                                      name: profile.displayName,
+                                     username: profile.username
                                  };
-                                 User.findOrCreate(searchObj)
+                                 User.find(searchObj)
                                      .success(function(user, created){
-                                         done(null, user);
+                                         if(!user){
+                                             var newUser = User.build(createObj);
+                                             newUser.save()
+                                                 .success(function(createdUser){
+                                                     done(null, createdUser);
+                                                 })
+                                                 .error(function(err){
+                                                     done(err, null);
+                                                 });
+                                         }
+                                         else{
+                                             done(null, user);
+                                         }
                                      })
                                      .error(function(err){
                                          done(err);
@@ -27,21 +46,21 @@ module.exports = function(db){
 
     passport.use(
         new TwitterStrategy(credentials.twitter,
-                             function(accessToken, refreshToken, profile, done){
-                                 var searchObj = {
-                                     username: profile.id,
-                                     provider: profile.provider,
-                                     providerId: profile.id,
-                                     name: profile.displayName,
-                                 };
-                                 User.findOrCreate(searchObj)
-                                     .success(function(user, created){
-                                         done(null, user);
-                                     })
-                                     .error(function(err){
-                                         done(err);
-                                     });
-                             })
+                            function(accessToken, refreshToken, profile, done){
+                                var searchObj = {
+                                    username: profile.id,
+                                    provider: profile.provider,
+                                    providerId: profile.id,
+                                    name: profile.displayName,
+                                };
+                                User.findOrCreate(searchObj)
+                                    .success(function(user, created){
+                                        done(null, user);
+                                    })
+                                    .error(function(err){
+                                        done(err);
+                                    });
+                            })
     );
 
 
