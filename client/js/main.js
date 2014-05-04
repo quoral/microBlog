@@ -3,7 +3,10 @@ require.config({
 	angular: '../lib/angular/angular',
 	angularRoute: '../lib/angular-route/angular-route',
 	angularMocks: '../lib/angular-mocks/angular-mocks',
-	text: '../lib/requirejs-text/text'
+	text: '../lib/requirejs-text/text',
+        angularMarkdownDirective: '../lib/angular-markdown-directive/markdown',
+        angularSanitize: '../lib/angular-sanitize/angular-sanitize',
+        showdown: '../lib/showdown/compressed/showdown'
     },
     shim: {
 	'angular' : {'exports' : 'angular'},
@@ -11,7 +14,19 @@ require.config({
 	'angularMocks': {
             deps:['angular'],
             'exports':'angular.mock'
-	}
+	},
+        'angularMarkdownDirective': {
+            deps: ['angularSanitize', 'showdown']
+        },
+        'angularSanitize':{
+            deps: ['angular'],
+
+            exports: 'angular.sanitize'
+        },
+        'showdown':{
+            'exports': 'showdown'
+        },
+        
     },
     priority: [
 	'angular'

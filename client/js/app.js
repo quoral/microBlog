@@ -4,14 +4,16 @@ define([
     'directives',
     'controllers',
     'config',
+    'angularMarkdownDirective',
     'angularRoute',
-], function(angular, services, directives, controllers, config, angularRoute){
+], function(angular, services, directives, controllers, config, angularMarkdownDirective, angularRoute){
     'use strict';
     var app = angular.module('microBlog', [
         'ngRoute',
         'microBlog.controllers',
         'microBlog.services',
-        'microBlog.directives'
+        'microBlog.directives',
+        'btford.markdown'
     ]);
     app.config(['$httpProvider',function($httpProvider) {
         angular.forEach(config.interceptors, function(interceptor){
