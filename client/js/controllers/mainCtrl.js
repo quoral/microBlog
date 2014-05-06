@@ -1,21 +1,19 @@
 define([], function(){
     'use strict';
-    return ['$scope', 'authService', '$window', function($scope, authService, $window){
-        $scope.updateInfo = function updateInfo(){
-            authService.getUserInfo()
-                .success(function(data, status){
-                    $scope.currentUser = data;
-                });
-        };
+    return ['$scope', 'authService', 'userRoles','$window', function($scope, authService, userRoles,$window){
         $scope.logout = function logout(){
-            authService.logout()
-                .success(function(data, status){
-                    $scope.currentUser = null;
-                });
+            authService.logout();
         };
+        $scope.$watch(function () {
+            return authService.currentUser;
+        },                       
+                      function(newVal, oldVal) {
+                          $scope.currentUser = authService.currentUser;
+                      }, 
+                      true);
+        authService.getUserInfo();
         $scope.roleIsAuthenticated = authService.roleIsAuthenticated;
-        $scope.roles = authService.roles;
-        $scope.updateInfo();
+        $scope.roles = userRoles;
         $scope.$apply();
     }];
 });

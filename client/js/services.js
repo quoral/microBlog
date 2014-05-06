@@ -6,9 +6,15 @@ define([
 ], function(angular, postService, authService, userService){
     'use strict';
     var services = angular.module('microBlog.services', []);
-    services.service('authService', authService);
-    services.service('postService', postService);
-    services.service('userService', userService);
+    services.factory('authService', authService);
+    services.factory('postService', postService);
+    services.factory('userService', userService);
+    services.constant('userRoles', {
+        admin: 'ADMIN',
+        poster: 'POSTER',
+        user: 'USER'
+    });
+            
     
     return services;
 });

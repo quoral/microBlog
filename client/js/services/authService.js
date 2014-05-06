@@ -1,15 +1,29 @@
 define([''], function(){
     'use strict';
-    return ['$http', function($http){
-        return {
+    return ['$http','userRoles', function($http, userRoles){
+        var service = {
+            currentUser: {},
             getUserInfo: function(){
-                return $http.get('/rest/auth/thisUser');
+                var promise = $http.get('/rest/auth/thisUser');
+                promise.then(function(data){
+                    service.currentUser = data.data;
+                },function(err){
+                    
+                });
+                return promise;
             },
             editUserInfo: function(postData){
                 return $http.put('/rest/auth/thisUser', postData);
             },
             logout: function(){
-                return $http.get('/rest/auth/logout');
+                var promise = $http.get('/rest/auth/logout');
+                promise.then(function(data){
+                    service.currentUser = undefined;
+                },function(err){
+                    
+                });
+                return promise;
+
             },
             roleIsAuthenticated: function(role, requiresRole){
                 if('ADMIN' === requiresRole &&
@@ -27,11 +41,7 @@ define([''], function(){
                     return false;
                 }
             },
-            roles: {
-                admin: 'ADMIN',
-                poster: 'POSTER',
-                user: 'USER'
-            }
         };
+        return service;
     }];
 });
