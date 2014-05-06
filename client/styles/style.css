@@ -10,6 +10,10 @@
 
 }
 
+.ui .segment {
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
 .mainSegment
 {
   width: 50%;
