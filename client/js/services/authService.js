@@ -18,7 +18,7 @@ define([''], function(){
             logout: function(){
                 var promise = $http.get('/rest/auth/logout');
                 promise.then(function(data){
-                    service.currentUser = undefined;
+                    service.currentUser = {};
                 },function(err){
                     
                 });

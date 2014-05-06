@@ -6,10 +6,10 @@ define([], function(){
         };
         $scope.$watch(function () {
             return authService.currentUser;
-        },                       
+        },
                       function(newVal, oldVal) {
                           $scope.currentUser = authService.currentUser;
-                      }, 
+                      },
                       true);
         authService.getUserInfo();
         $scope.roleIsAuthenticated = authService.roleIsAuthenticated;
