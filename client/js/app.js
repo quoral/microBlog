@@ -27,8 +27,19 @@ define([
             }
             var role = current.$$route.requiresUserRole;
             if(role){
-                if(!authService.roleIsAuthenticated(authService.currentUser.role, role)){
-                    $location.path('/');
+                var redirectIfNotAuthenticated = function(){
+                    if(!authService.roleIsAuthenticated(authService.currentUser.role, role)){
+                        $location.path('/');
+                    }
+                };
+                if(authService.hasBeenLoaded){
+                    redirectIfNotAuthenticated();
+                }
+                else{
+                    authService.getUserInfo()
+                        .success(function(){
+                            redirectIfNotAuthenticated();
+                        });
                 }
             }
         });
