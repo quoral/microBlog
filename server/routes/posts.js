@@ -23,7 +23,7 @@ module.exports = function(app, passport){
     });
 
     app.get('/rest/posts', function(req, res){
-        Post.all({include: [User, Comment]})
+        Post.all({include: [User]})
             .success(function(posts){
                 res.send(JSON.stringify(posts));
             })
@@ -59,10 +59,9 @@ module.exports = function(app, passport){
                     return singlePost.destroy();
                 }
             })
-            .success(function(){
+            .then(function(){
                 res.status(200).send();
-            })
-            .error(function(err){
+            }, function(err){
                 console.log('Failed /rest/posts delete with', err);
                 res.status(500).send();
             });
