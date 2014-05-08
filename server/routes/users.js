@@ -4,9 +4,9 @@ var userRoles = require('../config/config').userRoles;
 
 module.exports = function(app, passport){
     var User = app.get('models').User;
-    
+    var Post = app.get('models').Post;
     app.get('/rest/users', function(req, res){
-        User.all()
+        User.all({include:[Post]})
             .success(function(users){
                 res.send(JSON.stringify(users));
             })
@@ -17,7 +17,7 @@ module.exports = function(app, passport){
     });
     
     app.get('/rest/users/:id', function(req, res){
-        User.find(req.params.id)
+        User.find(req.params.id, {include:[Post]})
             .success(function(singleUser){
                 if(singleUser === null){
                     res.status(404).send();

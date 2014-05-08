@@ -4,7 +4,7 @@ var auth = require('./middlewares/auth');
 var userRoles = require('../config/config').userRoles;
 module.exports = function(app, passport){
     var Post = app.get('models').Post;
-    
+    var User = app.get('models').User;
     app.post('/rest/posts', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res, next){
         var post = Post.build(req.body);
         console.log('Entered posting');
@@ -14,12 +14,15 @@ module.exports = function(app, passport){
                 res.status(500).send();
             })
             .success(function(newPost){
-                res.send(JSON.stringify(newPost));
+                newPost.setUser(req.user).success(function(){
+                    res.send(JSON.stringify(newPost));
+                });
+
             });
     });
 
     app.get('/rest/posts', function(req, res){
-        Post.all()
+        Post.all({include: [User]})
             .success(function(posts){
                 res.send(JSON.stringify(posts));
             })

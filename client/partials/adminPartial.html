@@ -19,25 +19,51 @@
               </div>
             </div>
           </div>
-          <div class="grouped inline fields">
-            <div class="field">
-              <div class="ui radio checkbox">
-                <input id="roleUser{{user.id}}" type="radio" ng-model="user.role" value="USER"/>
-                <label for="roleUser{{user.id}}">Is User</label>
+          <div class="ui two column grid">
+            <div class="grouped inline fields column">
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input id="roleUser{{user.id}}" type="radio" ng-model="user.role" value="USER"/>
+                  <label for="roleUser{{user.id}}">Is User</label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input id="rolePoster{{user.id}}" type="radio" ng-model="user.role" value="POSTER"/>
+                  <label for="rolePoster{{user.id}}">Is Poster</label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input id="roleAdmin{{user.id}}" type="radio" ng-model="user.role" value="ADMIN"/>
+                  <label for="roleAdmin{{user.id}}">Is Admin</label>
+                </div>
               </div>
             </div>
-            <div class="field">
-              <div class="ui radio checkbox">
-                <input id="rolePoster{{user.id}}" type="radio" ng-model="user.role" value="POSTER"/>
-                <label for="rolePoster{{user.id}}">Is Poster</label>
+            <div class="ui column">
+              <div class="ui buttons floated right">
+                <div class="ui positive circular button">Save User</div>
+                <div class="or"></div>
+                <div class="ui negative circular button">Delete User</div>
               </div>
-            </div>
-            <div class="field">
-              <div class="ui radio checkbox">
-                <input id="roleAdmin{{user.id}}" type="radio" ng-model="user.role" value="ADMIN"/>
-                <label for="roleAdmin{{user.id}}">Is Admin</label>
+              <div class="circular floated right ui button" ng-click="showField = ! showField">
+                User's Posts <i ng-class="{down:!showField, up:showField}" class="circle icon"></i>
               </div>
+
             </div>
+
+          </div>
+          <div class="ui raised segment" ng-if="showField && user.posts">
+            <div ng-repeat="post in user.posts | orderBy:'createdAt':true" class="ui segment" >
+              <div class="ui header">
+                {{post.header}}
+              </div>
+              <div btf-markdown="post.text">
+              </div>
+              <div ng-if="roleIsAuthenticated(currentUser.role, roles.poster)" class="ui right floated red icon button" ng-click="removePost(post.id)"><i class="trash icon" ></i></div>
+
+            </div>
+
           </div>
         </div>
       </form>

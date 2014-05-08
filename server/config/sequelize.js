@@ -26,8 +26,12 @@ var walk = function(path){
 walk(modelsPath);
 
 // Create assocations
-module.exports.models.User.hasMany(module.exports.models.Post, {as: 'Posts'});
+module.exports.models.User.hasMany(module.exports.models.Post);
+module.exports.models.Post.belongsTo(module.exports.models.User);
+
+
 if(!sequelize.sync()){
-    console.log('Sequelize could not sync :(');
+    sequelize.sync({force:true});
+    console.error('Sequelize could not sync, so I forced it :(');
 }
 module.exports.sequelize = sequelize.authenticate();
