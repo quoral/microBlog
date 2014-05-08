@@ -30,20 +30,10 @@ define([], function(){
                 });
         };
 
-        $scope.removePost = function(id){
-            postService.delete(id)
+        $scope.removePost = function(index){
+            var post = $scope.posts[index];
+            postService.delete(post.id)
                 .success(function(data, status){
-                    // This can give sync-issues later on.
-                    // could be improved by using a periodic 
-                    // polling in order to see if new items are added.
-                    // Or simply by using the emitting functionality of websockets later on.
-                    var index;
-                    for(var i = 0; i < $scope.posts.length; i++){
-                        if($scope.posts[i].id === id){
-                            index = i;
-                            break;
-                        }
-                    }
                     $scope.posts.splice(index,1);
                 })
                 .error(function(data, status){
