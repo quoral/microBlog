@@ -29,6 +29,12 @@ walk(modelsPath);
 module.exports.models.User.hasMany(module.exports.models.Post);
 module.exports.models.Post.belongsTo(module.exports.models.User);
 
+module.exports.models.User.hasMany(module.exports.models.Comment);
+module.exports.models.Comment.belongsTo(module.exports.models.User);
+
+module.exports.models.Post.hasMany(module.exports.models.Comment);
+module.exports.models.Comment.belongsTo(module.exports.models.Post);
+
 
 if(!sequelize.sync()){
     sequelize.sync({force:true});

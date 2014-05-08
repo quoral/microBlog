@@ -5,6 +5,7 @@ var userRoles = require('../config/config').userRoles;
 module.exports = function(app, passport){
     var Post = app.get('models').Post;
     var User = app.get('models').User;
+    var Comment = app.get('models').Comment;
     app.post('/rest/posts', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res, next){
         var post = Post.build(req.body);
         console.log('Entered posting');
@@ -22,7 +23,7 @@ module.exports = function(app, passport){
     });
 
     app.get('/rest/posts', function(req, res){
-        Post.all({include: [User]})
+        Post.all({include: [User, Comment]})
             .success(function(posts){
                 res.send(JSON.stringify(posts));
             })
@@ -37,9 +38,10 @@ module.exports = function(app, passport){
             .success(function(singlePost){
                 if(singlePost === null){
                     res.status(404).send();
-                    return;
                 }
-                res.send(JSON.stringify(singlePost));
+                else{
+                    res.send(JSON.stringify(singlePost));
+                }
             })
             .error(function(err){
                 console.log('Failed /rest/posts post with', err);
@@ -49,19 +51,16 @@ module.exports = function(app, passport){
 
     app.del('/rest/posts/:id', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res, next){
         Post.find(req.params.id)
-            .success(function(singlePost){
+            .then(function(singlePost){
                 if(singlePost === null){
                     res.status(404).send();
-                    return;
                 }
-                singlePost.destroy()
-                    .success(function(){
-                        res.status(200).send();
-                    })
-                    .error(function(){
-                        console.log('Failed to remove', req.params.id);
-                        res.status(500).send();
-                    });
+                else{
+                    return singlePost.destroy();
+                }
+            })
+            .success(function(){
+                res.status(200).send();
             })
             .error(function(err){
                 console.log('Failed /rest/posts delete with', err);

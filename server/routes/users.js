@@ -38,14 +38,12 @@ module.exports = function(app, passport){
                     res.status(404).send();
                     return;
                 }
-                singlePost.destroy()
-                    .success(function(){
-                        res.status(200).send();
-                    })
-                    .error(function(){
-                        console.log('Failed to remove', req.params.id);
-                        res.status(500).send();
-                    });
+                else{
+                    return singlePost.destroy();
+                }
+            })
+            .success(function(){
+                res.status(200).send();
             })
             .error(function(err){
                 console.log('Failed /rest/posts delete with', err);
