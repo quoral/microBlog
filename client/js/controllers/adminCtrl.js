@@ -6,7 +6,7 @@ define([], function(){
 
         $scope.removeUser = function(id) {
             userService.delete(id);
-        }
+        };
 
         $scope.$watch(function () {
                 return userService.users;

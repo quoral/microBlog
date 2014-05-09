@@ -33,19 +33,19 @@ module.exports = function(app, passport){
 
     app.del('/rest/users/:id', [auth.requiresLogin, auth.requiresRole(userRoles.admin)], function(req, res, next){
         User.find(req.params.id)
-            .success(function(singlePost){
-                if(singlePost === null){
+            .then(function(singleUser){
+                if(singleUser === null){
                     res.status(404).send();
-                    return;
+                    return false;
                 }
                 else{
-                    return singlePost.destroy();
+                    return singleUser.destroy();
                 }
             })
-            .success(function(){
+            .then(function(){
+                console.log('wat');
                 res.status(200).send();
-            })
-            .error(function(err){
+            },function(err){
                 console.log('Failed /rest/posts delete with', err);
                 res.status(500).send();
             });
@@ -56,7 +56,6 @@ module.exports = function(app, passport){
             .then(function(singleUser){
                 if(singleUser === null){
                     res.status(404).send();
-                    return;
                 }
                 else{
                     return singleUser.updateAttributes({
