@@ -27,5 +27,20 @@ define(['angular', 'services'], function(angular, services) {
                     
                 }]
             };
+        }])
+        .directive('mbPost', [function(){
+            return {
+                templateUrl: 'client/partials/post-template.html',
+                scope: {
+                    post: '&mbPost',
+                    removePost: '&removePost',
+                    editable: '&editable'
+                },
+                controller: ['$scope', function($scope){
+                    console.log($scope);
+                }]
+            };
+
         }]);
+
 });

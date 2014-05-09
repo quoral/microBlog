@@ -14,19 +14,17 @@
             type="submit"
             ng-click="addPost(postText, postHeader)"
             ng-disabled="postForm.$invalid">ADD</button>
-    <div ng-show="showPreview" class="ui raised blue segment" btf-markdown="postText">
+
+    <div ng-show="showPreview" class="ui blue segment" mb-post="{text:postText, header:postHeader}">
       
     </div>
   </div>
   
   <div class="ui raised segment">
-    <div ng-repeat="post in posts | orderBy:'createdAt':true" class="ui segment" >
-      <div class="ui header">
-        {{post.header}}
-      </div>
-      <div btf-markdown="post.text">
-      </div>
-      <div ng-if="roleIsAuthenticated(currentUser.role, roles.poster)" class="ui right floated red icon button" ng-click="removePost($index)"><i class="trash icon" ></i></div>
+    <div ng-repeat="post in posts | orderBy:'createdAt':true"
+         mb-post="post"
+         editable="roleIsAuthenticated(currentUser.role, roles.poster)"
+         remove-post="removePost(id)">
 
     </div>
   </div>

@@ -30,11 +30,19 @@ define([], function(){
                 });
         };
 
-        $scope.removePost = function(index){
-            var post = $scope.posts[index];
-            postService.delete(post.id)
+        $scope.removePost = function(id){
+            console.log('REMOVING');
+            console.log(id);
+            postService.delete(id)
                 .success(function(data, status){
-                    $scope.posts.splice(index,1);
+                    console.log('Succedded in removing post');
+                    for(var i = 0; i < $scope.posts.length; i++){
+                        if($scope.posts[i].id === id){
+                            $scope.posts.splice(i,1);
+                            console.log('Found post, removing');
+                            break;
+                        }
+                    }
                 })
                 .error(function(data, status){
                     console.log('Failed to remove post', status);

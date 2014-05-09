@@ -1,0 +1,10 @@
+<div class="ui segment">
+    <div class="ui header">
+        {{post().header}}
+    </div>
+        <div btf-markdown="post().text">
+    </div>
+    <div ng-if="editable()" class="ui right floated red icon button" ng-click="removePost({id:post().id})">
+        <i class="trash icon"></i>
+    </div>
+</div>

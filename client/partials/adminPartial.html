@@ -54,16 +54,9 @@
 
           </div>
           <div class="ui raised segment" ng-if="showField && user.posts">
-            <div ng-repeat="post in user.posts | orderBy:'createdAt':true" class="ui segment" >
-              <div class="ui header">
-                {{post.header}}
-              </div>
-              <div btf-markdown="post.text">
-              </div>
-              <div ng-if="roleIsAuthenticated(currentUser.role, roles.poster)" class="ui right floated red icon button" ng-click="removePost(post.id)"><i class="trash icon" ></i></div>
-
-            </div>
-
+              <div ng-repeat="post in user.posts | orderBy:'createdAt':true"
+                   mb-post="post">
+               </div>
           </div>
         </div>
       </form>
