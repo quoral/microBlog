@@ -17,16 +17,15 @@ define(['angular', 'services'], function(angular, services) {
         .directive('mbMenu', [function(){
             return {
                 restrict: 'E',
-                templateUrl: 'client/partials/menu-template.html',
-                controller: ['$scope', '$location', function($scope, $location){
-                    $scope.isActive = function(path){
-                        return path === $scope.currentLocation;
-                    };
-
-                    $scope.currentLocation = $location.path();
-                    
-                }]
+                templateUrl: 'client/partials/menu-template.html'
             };
+        }])
+        .directive('mbMenuItem', ['$location', function($location) {
+            return function(scope, element, attrs){
+                    if(attrs.href === $location.path()){
+                        element.addClass('active');
+                    }
+                };
         }])
         .directive('mbPost', [function(){
             return {
@@ -35,10 +34,7 @@ define(['angular', 'services'], function(angular, services) {
                     post: '&mbPost',
                     removePost: '&removePost',
                     editable: '&editable'
-                },
-                controller: ['$scope', function($scope){
-                    console.log($scope);
-                }]
+                }
             };
 
         }]);
