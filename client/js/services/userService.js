@@ -27,6 +27,17 @@ define([''], function(){
                             }
                         }
                     });
+            },
+            put: function(id, postData){
+                return $http.put('rest/users/'+id, postData)
+                    .then(function(data, status){
+                        for(var i = 0; i < service.users.length; i++){
+                            if(service.users[i].id === id){
+                                service.users[i] = data.data;
+                                break;
+                            }
+                        }
+                    });
             }
         };
         return service;
