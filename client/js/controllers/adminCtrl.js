@@ -2,18 +2,20 @@ define([], function(){
     'use strict';
     return ['$scope', 'userService', function($scope, userService){
         $scope.users = [];
+        userService.getAll();
 
-        $scope.updateUsers = function(){
-            userService.getAll()
-                .success(function(data, status){
-                    $scope.users = data;
-                })
-                .error(function(data, status){
-                    console.log('Failed getting users', status);
-                });
-        };
+        $scope.removeUser = function(id) {
+            userService.delete(id);
+        }
 
-        $scope.updateUsers();
+        $scope.$watch(function () {
+                return userService.users;
+            },
+            function(newVal, oldVal) {
+                $scope.users = userService.users;
+            },
+            true);
+
         $scope.$apply();
     }];
 });

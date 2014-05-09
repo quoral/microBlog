@@ -44,7 +44,7 @@
               <div class="ui buttons floated right">
                 <div class="ui positive circular button">Save User</div>
                 <div class="or"></div>
-                <div class="ui negative circular button">Delete User</div>
+                <div class="ui negative circular button" ng-click="removeUser(user.id)">Delete User</div>
               </div>
               <div class="circular floated right ui button" ng-click="showField = ! showField">
                 User's Posts <i ng-class="{down:!showField, up:showField}" class="circle icon"></i>
