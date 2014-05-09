@@ -1,4 +1,4 @@
-define(['angular', 'services'], function(angular, services) {
+define(['angular', 'services', 'directives/mbPosts'], function(angular, services, mbPosts) {
     'use strict';
 
     /* Directives */
@@ -27,6 +27,7 @@ define(['angular', 'services'], function(angular, services) {
                     }
                 };
         }])
+        .directive('mbPosts', mbPosts)
         .directive('mbPost', [function(){
             return {
                 templateUrl: 'client/partials/post-template.html',

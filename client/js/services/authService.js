@@ -1,29 +1,28 @@
 define([''], function(){
     'use strict';
     return ['$http', '$location','userRoles', function($http, $location, userRoles){
+        var currentUserPromise;
         var service = {
             currentUser: {},
-            getUserInfo: function(){
-                var promise = $http.get('/rest/auth/thisUser');
-                promise.then(function(data){
-                    service.currentUser = data.data;
-                    service.hasBeenLoaded = true;
-                },function(err){
-                    
-                });
-                return promise;
+            getUserInfo: function(forceReload){
+                if(forceReload === true || !currentUserPromise){
+                    currentUserPromise = $http.get('/rest/auth/thisUser')
+                        .then(function(data, status){
+                            service.currentUser = data.data;
+                        });
+                }
+                return currentUserPromise;
             },
             editUserInfo: function(postData){
-                return $http.put('/rest/auth/thisUser', postData);
+                return $http.put('/rest/auth/thisUser', postData)
+                    .then(function(data, status){
+                        service.currentUser = data.data;
+                    });
             },
-            hasBeenLoaded: false,
             logout: function(){
                 var promise = $http.get('/rest/auth/logout');
                 promise.then(function(data){
                     service.currentUser = {};
-                    $location.path('/');
-                },function(err){
-                    
                 });
                 return promise;
 

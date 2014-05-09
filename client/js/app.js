@@ -27,20 +27,12 @@ define([
             }
             var role = current.$$route.requiresUserRole;
             if(role){
-                var redirectIfNotAuthenticated = function(){
-                    if(!authService.roleIsAuthenticated(authService.currentUser.role, role)){
-                        $location.path('/');
-                    }
-                };
-                if(authService.hasBeenLoaded){
-                    redirectIfNotAuthenticated();
-                }
-                else{
-                    authService.getUserInfo()
-                        .success(function(){
-                            redirectIfNotAuthenticated();
-                        });
-                }
+                authService.getUserInfo(true)
+                    .then(function(){
+                        if(!authService.roleIsAuthenticated(authService.currentUser.role, role)){
+                            $location.path('/');
+                        }
+                    });
             }
         });
     }]);

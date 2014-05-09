@@ -20,13 +20,7 @@
     </div>
   </div>
   
-  <div class="ui raised segment">
-    <div ng-repeat="post in posts | orderBy:'createdAt':true"
-         mb-post="post"
-         editable="roleIsAuthenticated(currentUser.role, roles.poster)"
-         remove-post="removePost(id)">
-
-    </div>
+  <div mb-posts class="ui raised segment">
   </div>
 </div>
 

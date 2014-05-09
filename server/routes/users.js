@@ -51,5 +51,23 @@ module.exports = function(app, passport){
             });
     });
 
+    app.put('/rest/users/:id', [auth.requiresLogin, auth.requiresRole(userRoles.admin)], function(req, res, next){
+        User.find(req.params.id)
+            .then(function(singleUser){
+                if(singleUser === null){
+                    res.status(404).send();
+                    return;
+                }
+                else{
+                    return singleUser.updateAttributes({
+                        text: req.body.text,
+                        header: req.body.header
+                    });
+                }
+            })
+            .then(function(singleUser){
+                return res.status(200).send(JSON.stringify(singleUser));
+            });
+    });
 
 };
