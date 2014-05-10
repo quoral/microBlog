@@ -3,7 +3,7 @@
   <div class="ui raised segment">
     <h2 class="ui header">Admin Page</h2>
     <div ng-repeat="user in users | orderBy:'name':true" class="ui segment" >
-      <form>
+      <form name="userForm">
         <div class="ui form">
           <div class="two fields">
             <div class="inline field">
@@ -42,14 +42,13 @@
             </div>
             <div class="ui column">
               <div class="ui small buttons floated right">
-                <div class="ui positive circular button">Save</div>
+                <div class="ui positive circular button" ng-click="editUser(user.id, user)">Save</div>
                 <div class="or"></div>
                 <div class="ui negative circular button" ng-click="removeUser(user.id)">Delete</div>
               </div>
               <div class="floated right ui button" ng-click="showField = ! showField">
                 User's Posts <i ng-class="{down:!showField, up:showField}" class="circle icon"></i>
               </div>
-
             </div>
 
           </div>

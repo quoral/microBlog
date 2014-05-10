@@ -43,7 +43,6 @@ module.exports = function(app, passport){
                 }
             })
             .then(function(){
-                console.log('wat');
                 res.status(200).send();
             },function(err){
                 console.log('Failed /rest/posts delete with', err);
@@ -56,11 +55,13 @@ module.exports = function(app, passport){
             .then(function(singleUser){
                 if(singleUser === null){
                     res.status(404).send();
+                    return;
                 }
                 else{
                     return singleUser.updateAttributes({
-                        text: req.body.text,
-                        header: req.body.header
+                        username: req.body.username,
+                        name: req.body.name,
+                        role: req.body.role
                     });
                 }
             })
