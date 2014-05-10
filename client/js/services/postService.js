@@ -19,7 +19,7 @@ define([''], function(){
             post: function(postData){
                 return $http.post('rest/posts',postData)
                     .then(function(data, status){
-                        service.posts.push(data);
+                        service.posts.push(data.data);
                     });
             },
             delete: function(id){
