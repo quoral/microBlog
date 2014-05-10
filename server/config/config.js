@@ -16,7 +16,8 @@ module.exports = {
         dbName: 'microblog',
         username: 'root',
         password: 'passwd',
-        dialect: 'mysql',
-        port: 3306,
-    },
+        dialect: 'sqlite',
+        storage: 'db.sqlite',
+        port: 3306
+    }
 };

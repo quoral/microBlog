@@ -8,6 +8,7 @@ var Sequelize = require('sequelize'),
 var sequelize = new Sequelize(db.dbName, db.username, db.password, {
     dialect: db.dialect,
     port: db.port,
+    storage: db.storage
 });
 
 

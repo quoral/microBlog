@@ -19,7 +19,7 @@ define([''], function(){
             },
             delete: function(id){
                 return $http.delete('rest/users/'+id)
-                    .then(function(data, status){g
+                    .then(function(data, status){
                         for(var i = 0; i < service.users.length; i++){
                             if(service.users[i].id === id){
                                 service.users.splice(i,1);
