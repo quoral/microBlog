@@ -1,7 +1,7 @@
 <div class="ui segment">
 
     <div ng-show="editable()">
-        <div class="ui right floated red icon button" ng-show="removePost" ng-click="removePost({id:post().id})">
+        <div class="ui right floated red icon button" ng-show="removePost" ng-click="removePost({id:post.id})">
             <i class="trash icon"></i>
         </div>
         <div class="ui right floated green icon button" ng-show="editPost" ng-click="editToggle = !editToggle">
