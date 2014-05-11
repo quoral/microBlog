@@ -66,7 +66,10 @@ module.exports = function(app, passport){
                 }
             })
             .then(function(singleUser){
-                return res.status(200).send(JSON.stringify(singleUser));
+                return User.find({include:[Post]}, singleUser.dataValues.id);
+            })
+            .then(function(singleUser){
+                res.status(200).send(JSON.stringify(singleUser));
             });
     });
 
