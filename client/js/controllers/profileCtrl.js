@@ -4,7 +4,7 @@ define([], function(){
         $scope.save = function(username, name){
             var data = {'username': username, 'name': name};
             authService.editUserInfo(data)
-                .success(function(data, status){
+                .then(function(data, status){
                     console.log('Saved data');
                 });
         };
