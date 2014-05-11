@@ -2,9 +2,32 @@
     <div class="ui header">
         {{post().header}}
     </div>
-        <div btf-markdown="post().text">
+
+    <div ng-show="editable()">
+        <div class="ui right floated red icon button" ng-show="removePost" ng-click="removePost({id:post().id})">
+            <i class="trash icon"></i>
+        </div>
+        <div class="ui right floated green icon button" ng-show="editPost" ng-click="editToggle = !editToggle">
+            <i class="edit icon"></i>
+        </div>
     </div>
-    <div ng-if="editable()" class="ui right floated red icon button" ng-click="removePost({id:post().id})">
-        <i class="trash icon"></i>
+    <div ng-if="editToggle">
+        <form class="ui form" name="postForm" novalidate>
+            <div class="input">
+                <input type="text" name="postHeader" ng-model="post().header" placeholder="Post Title" required>
+            </div>
+            <div class="field">
+                <textarea name="postText" ng-model="post().text" placeholder="Post Text" required></textarea>
+            </div>
+            <button type="submit"
+                    class="ui button"
+                    ng-click="editPost({id:post().id, userObj:post()})"
+                    ng-disabled="postForm.$invalid">
+                Save
+            </button>
+        </form>
     </div>
+    <div ng-if="!editToggle"  btf-markdown="post().text">
+    </div>
+
 </div>

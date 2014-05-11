@@ -15,6 +15,15 @@ define([], function(){
                         });
                 };
 
+                $scope.editPost = function(id, userObj){
+                    postService.put(id, userObj)
+                        .then(function(data, status){
+                            console.log('Edited post');
+                        }, function(data, status){
+                            console.log('Failed editing post');
+                        });
+                };
+
                 $scope.$watch(function () {
                         return postService.posts;
                     },

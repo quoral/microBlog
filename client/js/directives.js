@@ -33,9 +33,28 @@ define(['angular', 'services', 'directives/mbPosts'], function(angular, services
                 templateUrl: 'client/partials/post-template.html',
                 scope: {
                     post: '&mbPost',
-                    removePost: '&removePost',
+                    externalRemovePost: '&removePost',
+                    externalEditPost: '&editPost',
                     editable: '&editable'
-                }
+                },
+                link: function(scope, element, attrs){
+                    if(attrs.editPost === undefined){
+                        scope.editPost = false;
+                    }
+                    if(attrs.removePost === undefined){
+                        scope.removePost = false;
+                    }
+                },
+                controller: ['$scope', function($scope){
+                    $scope.editToggle = false;
+                    $scope.editPost = function(obj){
+                        $scope.editToggle = false;
+                        $scope.externalEditPost(obj);
+                    };
+
+                    $scope.removePost = $scope.externalRemovePost;
+                }]
+
             };
 
         }]);
