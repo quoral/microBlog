@@ -67,5 +67,28 @@ module.exports = function(app, passport){
             });
     });
 
+    app.put('/rest/posts/:id', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res, next){
+        Post.find(req.params.id)
+            .then(function(singlePost){
+                if(singlePost === null){
+                    res.status(404).send();
+                }
+                else{
+                    return singlePost.updateAttributes({
+                        text: req.body.text,
+                        header: req.body.header
+                    });
+                }
+            })
+            .then(function(singlePost){
+                return Post.find({include:[User]}, singlePost.dataValues.id);
+            })
+            .then(function(singlePost){
+                res.status(200).send(JSON.stringify(singlePost));
+            });
+    });
+
+
+
 
 };
