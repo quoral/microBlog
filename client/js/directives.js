@@ -32,7 +32,7 @@ define(['angular', 'services', 'directives/mbPosts'], function(angular, services
             return {
                 templateUrl: 'client/partials/post-template.html',
                 scope: {
-                    post: '&mbPost',
+                    externalPost: '&mbPost',
                     externalRemovePost: '&removePost',
                     externalEditPost: '&editPost',
                     editable: '&editable'
@@ -51,7 +51,7 @@ define(['angular', 'services', 'directives/mbPosts'], function(angular, services
                         $scope.editToggle = false;
                         $scope.externalEditPost(obj);
                     };
-
+                    $scope.post = angular.copy($scope.externalPost());
                     $scope.removePost = $scope.externalRemovePost;
                 }]
 
