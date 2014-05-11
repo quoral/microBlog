@@ -37,7 +37,7 @@ define([''], function(){
                 return $http.put('rest/posts/'+id, post)
                     .then(function(data, status){
                         for(var i = 0; i < service.posts.length; i++){
-                            if(service.posts[i].id === id){
+                            if(service.posts[i].id === data.data.id){
                                 service.posts[i] = data.data;
                                 break;
                             }
