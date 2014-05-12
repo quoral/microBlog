@@ -15,11 +15,11 @@ define(['angular', 'services', 'directives/mbPosts'], function(angular, services
             };
         }])
         .directive('mbMenu', [function(){
-            return {
-                restrict: 'E',
-                templateUrl: 'client/partials/menu-template.html'
-            };
-        }])
+                return {
+                    restrict: 'E',
+                    templateUrl: 'client/partials/menu-template.html'
+                };
+            }])
         .directive('mbMenuItem', ['$location', function($location) {
             return function(scope, element, attrs){
                     if(attrs.href === $location.path()){
@@ -51,6 +51,13 @@ define(['angular', 'services', 'directives/mbPosts'], function(angular, services
                         $scope.editToggle = false;
                         $scope.externalEditPost(obj);
                     };
+                    $scope.$watch(function () {
+                            return $scope.externalPost();
+                        },
+                        function(newVal, oldVal) {
+                            $scope.post = angular.copy($scope.externalPost());
+                        },
+                        true);
                     $scope.post = angular.copy($scope.externalPost());
                     $scope.removePost = $scope.externalRemovePost;
                 }]
