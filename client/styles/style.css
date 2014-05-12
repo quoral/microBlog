@@ -1,9 +1,4 @@
-.postList
-{
-  width: 25%;
-}
-
-.postText 
+.postText
 {
     white-space: pre-wrap;
     text-indent: 0px;
@@ -22,5 +17,5 @@
 
 .mainSegment
 {
-  width: 50%;
+  width: 75%;
 }
