@@ -1,36 +1,39 @@
 <div class="ui segment">
 
-    <div ng-show="editable()">
-        <div class="ui right floated red icon button" ng-show="removePost" ng-click="removePost({id:post.id})">
+    <div class="ui icon buttons floated right" ng-show="editable() && !editToggle">
+        <button class="ui right floated red  button" ng-show="removePost" ng-click="removePost({id:post.id})">
             <i class="trash icon"></i>
-        </div>
-        <div class="ui right floated green icon button" ng-show="editPost" ng-click="editToggle = !editToggle">
+        </button>
+        <button class="ui right floated green  button" ng-show="editPost" ng-click="editToggle = !editToggle">
             <i class="edit icon"></i>
-        </div>
+        </button>
     </div>
     <div ng-if="!editToggle">
-        <div class="ui header">
+        <div class="ui black block header">
             {{post.header}}
         </div>
         <div btf-markdown="post.text">
         </div>
     </div>
-    <div ng-if="editToggle">
-        <form class="ui form" name="postForm" novalidate>
-            <div class="input">
-                <input type="text" name="postHeader" ng-model="post.header" placeholder="Post Title" required>
-            </div>
-            <div class="field">
-                <textarea name="postText" ng-model="post.text" placeholder="Post Text" required></textarea>
-            </div>
-            <button type="submit"
-                    class="{{postForm.$invalid ? 'disabled' : ''}} green ui button"
-                    ng-click="editPost({id:post.id, userObj:post})"
-                    ng-disabled="postForm.$invalid">
-                Save
-            </button>
-        </form>
-    </div>
+    <form class="ui form" ng-if="editToggle" name="postForm" novalidate>
+        <div class="input">
+            <input type="text" name="postHeader" ng-model="post.header" placeholder="Post Title" required>
+        </div>
+        <div class="field">
+            <textarea name="postText" ng-model="post.text" placeholder="Post Text" required></textarea>
+        </div>
+        <button type="submit"
+                class="{{postForm.$invalid ? 'disabled' : ''}} green ui button"
+                ng-click="editPost({id:post.id, userObj:post})"
+                ng-disabled="postForm.$invalid">
+            Save
+        </button>
+        <button type="submit"
+                class="red ui button"
+                ng-click="editCancel()">
+            Cancel
+        </button>
+    </form>
 
 
 </div>
