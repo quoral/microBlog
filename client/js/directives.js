@@ -1,4 +1,4 @@
-define(['angular', 'services', 'directives/mbPosts'], function(angular, services, mbPosts) {
+define(['angular', 'services', 'directives/mbPosts', 'directives/mbPost'], function(angular, services, mbPosts, mbPost) {
     'use strict';
 
     /* Directives */
@@ -28,42 +28,6 @@ define(['angular', 'services', 'directives/mbPosts'], function(angular, services
                 };
         }])
         .directive('mbPosts', mbPosts)
-        .directive('mbPost', [function(){
-            return {
-                templateUrl: 'client/partials/post-template.html',
-                scope: {
-                    externalPost: '&mbPost',
-                    externalRemovePost: '&removePost',
-                    externalEditPost: '&editPost',
-                    editable: '&editable'
-                },
-                link: function(scope, element, attrs){
-                    if(attrs.editPost === undefined){
-                        scope.editPost = false;
-                    }
-                    if(attrs.removePost === undefined){
-                        scope.removePost = false;
-                    }
-                },
-                controller: ['$scope', function($scope){
-                    $scope.editToggle = false;
-                    $scope.editPost = function(obj){
-                        $scope.editToggle = false;
-                        $scope.externalEditPost(obj);
-                    };
-                    $scope.$watch(function () {
-                            return $scope.externalPost();
-                        },
-                        function(newVal, oldVal) {
-                            $scope.post = angular.copy($scope.externalPost());
-                        },
-                        true);
-                    $scope.post = angular.copy($scope.externalPost());
-                    $scope.removePost = $scope.externalRemovePost;
-                }]
-
-            };
-
-        }]);
+        .directive('mbPost', mbPost);
 
 });
