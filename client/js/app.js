@@ -43,7 +43,6 @@ define([
                 if($route.current && $route.current.$$route){
 
                     var role = $route.current.$$route.requiresUserRole;
-                    console.log(role);
                     redirectIfNotAuthenticated(role);
                 }
             },
