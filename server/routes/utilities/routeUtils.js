@@ -33,6 +33,26 @@ exports.getAll = function(Entity, options){
     };
 };
 
+exports.del = function(Entity, entityId){
+    return function(req, res){
+        Entity.find(entityId)
+            .then(function(singleEntity){
+                if(singleEntity === null){
+                    res.status(404).send();
+                    return false;
+                }
+                else{
+                    return singleEntity.destroy();
+                }
+            })
+            .then(function(){
+                res.status(200).send();
+            },function(err){
+                console.log('Failed general delete with', err);
+                res.status(500).send();
+            });
+    }
+};
 
 exports.get = function(Entity, entityId, options){
     return function(req, res){

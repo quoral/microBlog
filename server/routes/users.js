@@ -12,26 +12,12 @@ module.exports = function(app, passport){
     
     app.get('/rest/users/:id', function(req, res){
         var getUser = routeUtils.get(User, req.params.id, {include:[Post]});
-        getUser(req,res);
+        getUser(req, res);
     });
 
     app.del('/rest/users/:id', [auth.requiresLogin, auth.requiresRole(userRoles.admin)], function(req, res){
-        User.find(req.params.id)
-            .then(function(singleUser){
-                if(singleUser === null){
-                    res.status(404).send();
-                    return false;
-                }
-                else{
-                    return singleUser.destroy();
-                }
-            })
-            .then(function(){
-                res.status(200).send();
-            },function(err){
-                console.log('Failed /rest/posts delete with', err);
-                res.status(500).send();
-            });
+        var deleteUser = routeUtils.del(User, req.params.id);
+        deleteUser(req, res);
     });
 
     app.put('/rest/users/:id', [auth.requiresLogin, auth.requiresRole(userRoles.admin)], function(req, res){

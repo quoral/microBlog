@@ -35,21 +35,8 @@ module.exports = function(app, passport){
     });
 
     app.del('/rest/posts/:id', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res){
-        Post.find(req.params.id)
-            .then(function(singlePost){
-                if(singlePost === null){
-                    res.status(404).send();
-                }
-                else{
-                    return singlePost.destroy();
-                }
-            })
-            .then(function(){
-                res.status(200).send();
-            }, function(err){
-                console.log('Failed /rest/posts delete with', err);
-                res.status(500).send();
-            });
+        var deletePost = routeUtils.del(Post, req.params.id);
+        deletePost(req, res);
     });
 
     app.put('/rest/posts/:id', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res){
