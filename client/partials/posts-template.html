@@ -1,6 +1,6 @@
 <div ng-repeat="post in posts | orderBy:'createdAt':true track by post.id"
-     mb-post="post"
-     editable="roleIsAuthenticated(currentUser.role, roles.poster)"
-     remove-post="removePost(id)"
-     edit-post="editPost(id, userObj)">
+           mb-post="post"
+           editable="roleIsAuthenticated(currentUser.role, roles.poster)"
+           remove-post="removePost(id)"
+           edit-post="editPost(id, userObj)">
 </div>
