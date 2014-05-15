@@ -1,7 +1,7 @@
 'use strict';
-exports.put = function(Entity, entityId, updateFunction, options){
+exports.put = function(Entity, searchObj, updateFunction, options){
     return function(req, res){
-        Entity.find(entityId)
+        Entity.find(searchObj)
             .then(function(singleEntity){
                 if(singleEntity === null){
                     res.status(404).send();
@@ -20,7 +20,7 @@ exports.put = function(Entity, entityId, updateFunction, options){
 };
 
 
-exports.getAll = function(Entity, options){
+exports.findAll = function(Entity, searchObj, options){
     return function(req, res){
         Entity.all(options)
             .success(function(entities){
@@ -33,9 +33,9 @@ exports.getAll = function(Entity, options){
     };
 };
 
-exports.del = function(Entity, entityId){
+exports.del = function(Entity, searchObj){
     return function(req, res){
-        Entity.find(entityId)
+        Entity.find(searchObj)
             .then(function(singleEntity){
                 if(singleEntity === null){
                     res.status(404).send();
@@ -51,12 +51,12 @@ exports.del = function(Entity, entityId){
                 console.log('Failed general delete with', err);
                 res.status(500).send();
             });
-    }
+    };
 };
 
-exports.get = function(Entity, entityId, options){
+exports.find = function(Entity, searchObj, options){
     return function(req, res){
-        Entity.find(entityId, options)
+        Entity.find(searchObj, options)
             .success(function(singleEntity){
                 if(singleEntity === null){
                     res.status(404).send();
