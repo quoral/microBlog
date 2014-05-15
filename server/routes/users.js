@@ -6,29 +6,13 @@ module.exports = function(app, passport){
     var User = app.get('models').User;
     var Post = app.get('models').Post;
     app.get('/rest/users', function(req, res){
-        User.all({include:[Post]})
-            .success(function(users){
-                res.send(JSON.stringify(users));
-            })
-            .error(function(err){
-                console.log('Failed /rest/posts get with', err);
-                res.status(500).send();
-            });
+        var getAllUsers = routeUtils.getAll(User, {include:[Post]});
+        getAllUsers(req, res);
     });
     
     app.get('/rest/users/:id', function(req, res){
-        User.find(req.params.id, {include:[Post]})
-            .success(function(singleUser){
-                if(singleUser === null){
-                    res.status(404).send();
-                    return;
-                }
-                res.send(JSON.stringify(singleUser));
-            })
-            .error(function(err){
-                console.log('Failed /rest/posts post with', err);
-                res.status(500).send();
-            });
+        var getUser = routeUtils.get(User, req.params.id, {include:[Post]});
+        getUser(req,res);
     });
 
     app.del('/rest/users/:id', [auth.requiresLogin, auth.requiresRole(userRoles.admin)], function(req, res){

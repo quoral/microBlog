@@ -18,3 +18,36 @@ exports.put = function(Entity, entityId, updateFunction, options){
             });
     };
 };
+
+
+exports.getAll = function(Entity, options){
+    return function(req, res){
+        Entity.all(options)
+            .success(function(entities){
+                res.send(JSON.stringify(entities));
+            })
+            .error(function(err){
+                console.error('Failed general getAll with', err);
+                res.status(500).send();
+            });
+    };
+};
+
+
+exports.get = function(Entity, entityId, options){
+    return function(req, res){
+        Entity.find(entityId, options)
+            .success(function(singleEntity){
+                if(singleEntity === null){
+                    res.status(404).send();
+                }
+                else{
+                    res.send(JSON.stringify(singleEntity));
+                }
+            })
+            .error(function(err){
+                console.log('Failed general get with', err);
+                res.status(500).send();
+            });
+    };
+};

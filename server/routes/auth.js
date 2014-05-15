@@ -23,6 +23,7 @@ module.exports = function(app, passport){
     app.get('/rest/auth/thisUser', auth.requiresLogin, function(req, res){
         res.send(req.user.dataValues);
     });
+
     app.put('/rest/auth/thisUser', auth.requiresLogin, function(req, res){
         var User = app.get('models').User;
         var userPut = routeUtils.put(User, req.user.dataValues.id, function(req){

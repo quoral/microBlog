@@ -25,30 +25,13 @@ module.exports = function(app, passport){
     });
 
     app.get('/rest/posts', function(req, res){
-        Post.all({include: [User]})
-            .success(function(posts){
-                res.send(JSON.stringify(posts));
-            })
-            .error(function(err){
-                console.log('Failed /rest/posts get with', err);
-                res.status(500).send();
-            });
+        var getAllPosts = routeUtils.getAll(Post, {include: [User]});
+        getAllPosts(req,res);
     });
 
     app.get('/rest/posts/:id', function(req, res){
-        Post.find(req.params.id)
-            .success(function(singlePost){
-                if(singlePost === null){
-                    res.status(404).send();
-                }
-                else{
-                    res.send(JSON.stringify(singlePost));
-                }
-            })
-            .error(function(err){
-                console.log('Failed /rest/posts post with', err);
-                res.status(500).send();
-            });
+        var getPost = routeUtils.get(Post, req.params.id, {include: [User]});
+        getPost(req, res);
     });
 
     app.del('/rest/posts/:id', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res){
