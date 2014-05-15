@@ -1,6 +1,6 @@
 'use strict';
 var auth = require('./middlewares/auth');
-
+var routeUtils = require('./utilities/routeUtils');
 module.exports = function(app, passport){
     
     app.get('/rest/auth/facebook', passport.authenticate('facebook'));
@@ -25,23 +25,13 @@ module.exports = function(app, passport){
     });
     app.put('/rest/auth/thisUser', auth.requiresLogin, function(req, res){
         var User = app.get('models').User;
-        User.find(req.user.dataValues.id)
-            .success(function(user){
-                user.updateAttributes({
-                    username: req.body.username,
-                    name: req.body.name
-                })
-                    .success(function(newUser){
-                        res.send(JSON.stringify(newUser));
-                    })
-                    .error(function(){
-                        res.send(500);
-                    });
-            })
-            .error(function(err){
-                console.log('Failed /rest/posts delete with', err);
-                res.status(500).send();
-            });
+        var userPut = routeUtils.put(User, req.user.dataValues.id, function(req){
+            return {
+                username: req.body.username,
+                name: req.body.name
+            };
+        }, {});
+        userPut(req,res);
     });
     
     app.get('/rest/auth/logout', auth.requiresLogin, function(req, res){

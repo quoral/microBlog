@@ -1,7 +1,7 @@
 'use strict';
 var auth = require('./middlewares/auth');
 var userRoles = require('../config/config').userRoles;
-
+var routeUtils = require('./utilities/routeUtils.js');
 module.exports = function(app, passport){
     var User = app.get('models').User;
     var Post = app.get('models').Post;
@@ -31,7 +31,7 @@ module.exports = function(app, passport){
             });
     });
 
-    app.del('/rest/users/:id', [auth.requiresLogin, auth.requiresRole(userRoles.admin)], function(req, res, next){
+    app.del('/rest/users/:id', [auth.requiresLogin, auth.requiresRole(userRoles.admin)], function(req, res){
         User.find(req.params.id)
             .then(function(singleUser){
                 if(singleUser === null){
@@ -50,27 +50,15 @@ module.exports = function(app, passport){
             });
     });
 
-    app.put('/rest/users/:id', [auth.requiresLogin, auth.requiresRole(userRoles.admin)], function(req, res, next){
-        User.find(req.params.id)
-            .then(function(singleUser){
-                if(singleUser === null){
-                    res.status(404).send();
-                    return;
-                }
-                else{
-                    return singleUser.updateAttributes({
-                        username: req.body.username,
-                        name: req.body.name,
-                        role: req.body.role
-                    });
-                }
-            })
-            .then(function(singleUser){
-                return User.find({include:[Post]}, singleUser.dataValues.id);
-            })
-            .then(function(singleUser){
-                res.status(200).send(JSON.stringify(singleUser));
-            });
+    app.put('/rest/users/:id', [auth.requiresLogin, auth.requiresRole(userRoles.admin)], function(req, res){
+        var userPut = routeUtils.put(User, req.params.id, function(req){
+            return {
+                username: req.body.username,
+                name: req.body.name,
+                role: req.body.role
+            };
+        }, {include:[Post]});
+        userPut(req,res);
     });
 
 };
