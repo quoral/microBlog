@@ -25,7 +25,7 @@ module.exports = function(app, passport){
     });
 
     app.get('/rest/posts', function(req, res){
-        var getAllPosts = routeUtils.findAll(Post, {}, {include: [User]});
+        var getAllPosts = routeUtils.findAll(Post, {}, {include: [User, Comment]});
         getAllPosts(req,res);
     });
 
@@ -34,7 +34,7 @@ module.exports = function(app, passport){
             where: {
                 id: req.params.id
             }
-        }, {include: [User]});
+        }, {include: [User, Comment]});
         getPost(req, res);
     });
 
@@ -58,7 +58,7 @@ module.exports = function(app, passport){
                     text: req.body.text,
                     header: req.body.header
                 };
-            },{include:[User]});
+            },{include:[User, Comment]});
         postPut(req,res);
     });
 

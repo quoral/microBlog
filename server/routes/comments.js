@@ -2,6 +2,7 @@
 
 var auth = require('./middlewares/auth');
 var userRoles = require('../config/config').userRoles;
+var routeUtils = require('./utilities/routeUtils');
 module.exports = function(app, passport){
     var Post = app.get('models').Post;
     var User = app.get('models').User;
@@ -36,50 +37,34 @@ module.exports = function(app, passport){
     });
 
     app.get('/rest/posts/:id/comments', function(req, res){
-        Comment.all({include: [User, Post]})
-            .success(function(posts){
-                res.send(JSON.stringify(posts));
-            })
-            .error(function(err){
-                console.log('Failed /rest/posts get with', err);
-                res.status(500).send();
-            });
+        var getAllComments = routeUtils.findAll(Comment, {
+            where: {
+                postId: req.params.id
+            }
+        }, {include: [User, Post]});
+        getAllComments(req, res);
     });
 
     app.get('/rest/posts/:postId/comments/:commentId', function(req, res){
-        var commentId = req.params.id;
-        Comment.find(commentId, {include: [User, Post]})
-            .success(function(singleComment){
-                if(singleComment === null){
-                    res.status(404).send();
+        var getComment = routeUtils.find(Comment,
+            {
+                where: {
+                    id: req.params.commentId,
+                    postId: req.params.postId
                 }
-                else{
-                    res.send(JSON.stringify(singleComment));
-                }
-            })
-            .error(function(err){
-                console.log('Failed /rest/posts post with', err);
-                res.status(500).send();
-            });
+            },{include: [User, Post]}
+        );
+        getComment(req, res);
     });
 
     app.del('/rest/posts/:postId/comments/:id', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res, next){
-        Comment.find(req.params.id)
-            .then(function(singleComment){
-                if(singleComment === null) {
-                    res.status(404).send();
-                }
-                else{
-                    return singleComment.destroy();
-                }
-            })
-            .success(function(singlePost){
-                res.status(200).send();
-            })
-            .error(function(err){
-                console.error('Failed /rest/posts delete with', err);
-                res.status(500).send();
-            });
+        var deleteComment = routeUtils.del(Comment, {
+            where: {
+                id: req.params.id,
+                postId: req.params.postId
+            }
+        });
+        deleteComment(req, res);
     });
 
 
