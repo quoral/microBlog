@@ -1,27 +1,29 @@
 <mb-menu></mb-menu>
 <div class="ui raised segment mainSegment">
-  <div ng-form class="ui form" ng-hide="!roleIsAuthenticated(currentUser.role, roles.poster)" name="postForm"  novalidate >
-    <div class="input">
-      <input type="text" name="postHeader" ng-model="postHeader" placeholder="Post Title" required>
-    </div>
-    <div class="field">
-      <textarea name="postText" ng-model="postText" placeholder="Post Text" required></textarea>
-    </div>
-    <div class="circular ui button" ng-click="showPreview = ! showPreview">
-      Markdown Preview <i ng-class="{down:!showPreview, up:showPreview}" class="circle icon"></i>
-    </div>
-    <button class="{{postForm.$invalid ? 'disabled' : ''}} green ui button "
-            type="submit"
-            ng-click="addPost(postText, postHeader)"
-            ng-disabled="postForm.$invalid">ADD</button>
+    <div ng-form class="ui form" ng-hide="!roleIsAuthenticated(currentUser.role, roles.poster)" name="postForm"
+         novalidate>
+        <div class="input">
+            <input type="text" name="postHeader" ng-model="postHeader" placeholder="Post Title" required>
+        </div>
+        <div class="field">
+            <textarea name="postText" ng-model="postText" placeholder="Post Text" required></textarea>
+        </div>
+        <div class="circular ui button" ng-click="showPreview = ! showPreview">
+            Markdown Preview <i ng-class="{down:!showPreview, up:showPreview}" class="circle icon"></i>
+        </div>
+        <button class="{{postForm.$invalid ? 'disabled' : ''}} green ui button "
+                type="submit"
+                ng-click="addPost(postText, postHeader)"
+                ng-disabled="postForm.$invalid">ADD
+        </button>
 
-    <div ng-show="showPreview" class="ui blue segment" mb-post="{text:postText, header:postHeader}">
-      
+        <div ng-show="showPreview" class="ui blue segment" mb-post="{text:postText, header:postHeader}">
+
+        </div>
     </div>
-  </div>
-  
-  <div mb-posts class="ui raised segment">
-  </div>
+
+    <div mb-posts class="ui raised segment">
+    </div>
 </div>
 
 

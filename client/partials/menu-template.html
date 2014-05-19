@@ -1,19 +1,19 @@
 <div class="ui menu">
 
-  <a mb-menu-item class="item" href="/">
-    <i class="home icon"></i> Home
-  </a>
+    <a mb-menu-item class="item" href="/">
+        <i class="home icon"></i> Home
+    </a>
 
-  <a mb-menu-item class="item" href="/admin" ng-if="roleIsAuthenticated(currentUser.role, roles.admin)">
-    <i class="mail icon"></i> Admin
-  </a>
+    <a mb-menu-item class="item" href="/admin" ng-if="roleIsAuthenticated(currentUser.role, roles.admin)">
+        <i class="mail icon"></i> Admin
+    </a>
 
-  <a mb-menu-item class="item" href="/profile" ng-if="currentUser.role">
-    <i class="user icon"></i> Profile  
-  </a>
+    <a mb-menu-item class="item" href="/profile" ng-if="currentUser.role">
+        <i class="user icon"></i> Profile
+    </a>
 
-  <div class="right menu">
-    <mb-login-buttons ng-if="!currentUser.role"> </mb-login-buttons>
-    <a ng-if="currentUser.role" class="ui button" ng-click="logout()">Logout</a>
-  </div>
+    <div class="right menu">
+        <mb-login-buttons ng-if="!currentUser.role"> </mb-login-buttons>
+        <a ng-if="currentUser.role" class="ui button" ng-click="logout()">Logout</a>
+    </div>
 </div>

@@ -1,30 +1,43 @@
 <mb-menu></mb-menu>
 <div class="ui raised segment mainSegment">
-  <div class="ui raised segment">
-    <h2 class="ui header">Profile Page</h2>
-    
-    <form name="profileForm" ng-submit="save()" novalidate>
-      <div class="ui form">
-        <div class="two fields">
+    <div class="ui raised segment">
+        <h2 class="ui header">Profile Page</h2>
 
-          <div class="inline field">
-            <div class="ui input">
-              <label for="username">Username </label>
-              <input type="text" id="username" ng-model="currentUser.username" placeholder="Username" required>
-            </div>
-          </div>
+        <form name="profileForm" ng-submit="save()" novalidate>
+            <div class="ui form">
+                <div class="two fields">
 
-          <div class="inline field">
-            <div class="ui input">
-              <label for="name">Name </label>
-              <input type="text" id="name" ng-model="currentUser.name" placeholder="Name">
+                    <div class="inline field">
+                        <div class="ui input">
+                            <label for="username">Username </label>
+                            <input type="text" id="username" ng-model="currentUser.username" placeholder="Username" required>
+                        </div>
+                    </div>
+
+                    <div class="inline field">
+                        <div class="ui input">
+                            <label for="name">Name </label>
+                            <input type="text" id="name" ng-model="currentUser.name" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="inline fields">
+
+                        <div class = "field">
+                            <div ng-click="save(currentUser.username, currentUser.name)" class="ui green button">
+                                <i class="save icon"></i>Save User Info
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div ng-click="remove()" class="ui floated right red button">
+                                <i class="remove sign icon"></i>Delete User
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
-          </div>
-          <div ng-click="save(currentUser.username, currentUser.name)" class="ui green button"><i class="save icon"></i>Save User Info</div>
-          <div ng-click="remove()" class="ui floated right red button"><i class="remove sign icon"></i>Delete User</div>
-        </div>
-        
-      </div>
-    </form>
-  </div>
+        </form>
+    </div>
 </div>

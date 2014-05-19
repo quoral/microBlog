@@ -33,7 +33,7 @@ define([], function(){
                 $scope.editCancel = function(){
                     $scope.editToggle = false;
                     $scope.post = angular.copy($scope.externalPost());
-                }
+                };
                 $scope.post = angular.copy($scope.externalPost());
                 $scope.removePost = $scope.externalRemovePost;
             }]

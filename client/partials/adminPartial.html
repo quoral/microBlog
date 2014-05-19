@@ -1,64 +1,64 @@
 <mb-menu></mb-menu>
 <div class="ui raised segment mainSegment">
-  <div class="ui raised segment">
-    <h2 class="ui header">Admin Page</h2>
-    <div ng-repeat="user in users | orderBy:'name':true" class="ui segment" >
-      <form name="userForm">
-        <div class="ui form">
-          <div class="two fields">
-            <div class="inline field">
-              <div class="ui input">
-                <label for="username{{user.id}}">Username </label>
-                <input type="text" id="username{{user.id}}" ng-model="user.username">
-              </div>
-            </div>
-            <div class="inline field">
-              <div class="ui input">
-                <label for="name{{user.id}}">Name </label>
-                <input type="text" id="name{{user.id}}" ng-model="user.name">
-              </div>
-            </div>
-          </div>
-          <div class="ui two column grid">
-            <div class="grouped inline fields column">
-              <div class="field">
-                <div class="ui radio checkbox">
-                  <input id="roleUser{{user.id}}" type="radio" ng-model="user.role" value="USER"/>
-                  <label for="roleUser{{user.id}}">Is User</label>
-                </div>
-              </div>
-              <div class="field">
-                <div class="ui radio checkbox">
-                  <input id="rolePoster{{user.id}}" type="radio" ng-model="user.role" value="POSTER"/>
-                  <label for="rolePoster{{user.id}}">Is Poster</label>
-                </div>
-              </div>
-              <div class="field">
-                <div class="ui radio checkbox">
-                  <input id="roleAdmin{{user.id}}" type="radio" ng-model="user.role" value="ADMIN"/>
-                  <label for="roleAdmin{{user.id}}">Is Admin</label>
-                </div>
-              </div>
-            </div>
-            <div class="ui column">
-              <div class="ui small buttons floated right">
-                <div class="ui positive circular button" ng-click="editUser(user.id, user)">Save</div>
-                <div class="or"></div>
-                <div class="ui negative circular button" ng-click="removeUser(user.id)">Delete</div>
-              </div>
-              <div class="floated right ui button" ng-click="showField = ! showField">
-                User's Posts <i ng-class="{down:!showField, up:showField}" class="circle icon"></i>
-              </div>
-            </div>
+    <div class="ui raised segment">
+        <h2 class="ui header">Admin Page</h2>
+        <div ng-repeat="user in users | orderBy:'name':true" class="ui segment" >
+            <form name="userForm">
+                <div class="ui form">
+                    <div class="two fields">
+                        <div class="inline field">
+                            <div class="ui input">
+                                <label for="username{{user.id}}">Username </label>
+                                <input type="text" id="username{{user.id}}" ng-model="user.username">
+                            </div>
+                        </div>
+                        <div class="inline field">
+                            <div class="ui input">
+                                <label for="name{{user.id}}">Name </label>
+                                <input type="text" id="name{{user.id}}" ng-model="user.name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui two column grid">
+                        <div class="grouped inline fields column">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input id="roleUser{{user.id}}" type="radio" ng-model="user.role" value="USER"/>
+                                    <label for="roleUser{{user.id}}">Is User</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input id="rolePoster{{user.id}}" type="radio" ng-model="user.role" value="POSTER"/>
+                                    <label for="rolePoster{{user.id}}">Is Poster</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input id="roleAdmin{{user.id}}" type="radio" ng-model="user.role" value="ADMIN"/>
+                                    <label for="roleAdmin{{user.id}}">Is Admin</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui column">
+                            <div class="ui small buttons floated right">
+                                <div class="ui positive circular button" ng-click="editUser(user.id, user)">Save</div>
+                                <div class="or"></div>
+                                <div class="ui negative circular button" ng-click="removeUser(user.id)">Delete</div>
+                            </div>
+                            <div class="floated right ui button" ng-click="showField = ! showField">
+                                User's Posts <i ng-class="{down:!showField, up:showField}" class="circle icon"></i>
+                            </div>
+                        </div>
 
-          </div>
-          <div class="ui raised segment" ng-if="showField && user.posts">
-              <div ng-repeat="post in user.posts | orderBy:'createdAt':true"
-                   mb-post="post">
-               </div>
-          </div>
+                    </div>
+                    <div class="ui raised segment" ng-if="showField && user.posts">
+                        <div ng-repeat="post in user.posts | orderBy:'createdAt':true"
+                             mb-post="post">
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-      </form>
     </div>
-  </div>
 </div>
