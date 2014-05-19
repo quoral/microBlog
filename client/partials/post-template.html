@@ -14,6 +14,19 @@
         </div>
         <div class="postText" btf-markdown="post.text">
         </div>
+
+        <div class="ui segment" ng-if="post.comments">
+            <div class="ui segment" ng-repeat="comment in post.comments track by comment.id">
+                {{ comment.text }}
+            </div>
+        </div>
+        <form class="ui form" name="commentForm" novalidate>
+            <input type="text" name="commentText" ng-model="temporaryAddComment.text" required>
+            <button type="submit" class="{{ commentForm.$invalid ? 'disabled' : '' }} green ui button"
+                    ng-click="addComment(temporaryAddComment)">
+                Save
+            </button>
+        </form>
     </div>
     <form class="ui form" ng-if="editToggle" name="postForm" novalidate>
         <div class="input">

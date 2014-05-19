@@ -24,6 +24,9 @@ define([], function(){
                         });
                 };
 
+                $scope.addComment = postService.comment.post;
+                $scope.deleteComment = postService.comment.delete;
+
                 $scope.$watch(function () {
                         return postService.posts;
                     },

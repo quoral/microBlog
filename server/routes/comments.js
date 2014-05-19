@@ -10,6 +10,7 @@ module.exports = function(app, passport){
 
     app.post('/rest/posts/:id/comments', [auth.requiresLogin, auth.requiresRole(userRoles.user)], function(req, res, next){
         var foundPost = false;
+        console.log(req.params.id);
         Post.find(req.params.id)
             .then(function(post){
                 if(post){
@@ -18,6 +19,7 @@ module.exports = function(app, passport){
                     return comment.save();
                 }
                 else{
+                    console.log('wat');
                     res.status(404).send();
                 }
             })
@@ -27,10 +29,9 @@ module.exports = function(app, passport){
             .then(function(savedComment){
                 return savedComment.setPost(foundPost);
             })
-            .success(function(newComment){
+            .then(function(newComment){
                 res.send(JSON.stringify(newComment));
-            })
-            .error(function(err){
+            },function(err){
                 console.log('Failed /rest/posts/:id/comments post with', err);
                 res.status(500).send();
             });
@@ -67,5 +68,18 @@ module.exports = function(app, passport){
         deleteComment(req, res);
     });
 
+    app.put('/rest/posts/:postId/comments/:commentId', [auth.requiresLogin, auth.requiresRole(userRoles.admin)], function(req, res){
+        var commentPut = routeUtils.put(Comment, {
+            where: {
+                postId: req.params.postId,
+                id: req.params.commentId
+            }
+        }, function(req){
+            return {
+                text: req.body.text
+            };
+        }, {include:[Post]});
+        commentPut(req, res);
+    });
 
 };
