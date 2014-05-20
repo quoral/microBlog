@@ -25,27 +25,40 @@ module.exports = function(app, passport){
     });
 
     app.get('/rest/posts', function(req, res){
-        var getAllPosts = routeUtils.getAll(Post, {include: [User]});
+        var getAllPosts = routeUtils.findAll(Post, {}, {include: [User, Comment]});
         getAllPosts(req,res);
     });
 
     app.get('/rest/posts/:id', function(req, res){
-        var getPost = routeUtils.get(Post, req.params.id, {include: [User]});
+        var getPost = routeUtils.find(Post, {
+            where: {
+                id: req.params.id
+            }
+        }, {include: [User, Comment]});
         getPost(req, res);
     });
 
     app.del('/rest/posts/:id', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res){
-        var deletePost = routeUtils.del(Post, req.params.id);
+        var deletePost = routeUtils.del(Post, {
+            where: {
+                id: req.params.id
+            }
+        });
         deletePost(req, res);
     });
 
     app.put('/rest/posts/:id', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res){
-        var postPut = routeUtils.put(Post, req.params.id, function(req){
-            return {
-                text: req.body.text,
-                header: req.body.header
-            };
-        }, {include:[User]});
+        var postPut = routeUtils.put(Post, {
+                where: {
+                    id: req.params.id
+                }
+            },
+            function(req){
+                return {
+                    text: req.body.text,
+                    header: req.body.header
+                };
+            },{include:[User, Comment]});
         postPut(req,res);
     });
 
