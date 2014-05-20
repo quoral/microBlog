@@ -9,23 +9,19 @@ define([], function(){
                 $scope.removePost = function(id){
                     postService.delete(id)
                         .then(function(data, status){
-                            console.log('Succedded in removing post');
                         },function(data, status){
-                            console.log('Failed to remove post', status);
                         });
                 };
 
                 $scope.editPost = function(id, userObj){
                     postService.put(id, userObj)
                         .then(function(data, status){
-                            console.log('Edited post');
                         }, function(data, status){
-                            console.log('Failed editing post');
                         });
                 };
 
                 $scope.addComment = postService.comment.post;
-                $scope.deleteComment = postService.comment.delete;
+                $scope.removeComment = postService.comment.delete;
 
                 $scope.$watch(function () {
                         return postService.posts;

@@ -62,19 +62,17 @@ define([''], function(){
                         });
                 },
                 post: function(postId, postData){
-                    console.log(postId, postData);
                     return $http.post('rest/posts/'+postId+'/comments',postData)
                         .then(function(data, status){
                             var postIndex = findIndexById(service.posts, data.data.PostId);
-                            console.log(postIndex);
                             service.posts[postIndex].comments.push(data.data);
                         });
                 },
                 delete: function(postId, commentId){
                     return $http.delete('rest/posts/'+postId+'/comments/'+commentId)
                         .then(function(data, status){
-                            var postIndex = findIndexById(service.posts, data.data.PostId);
-                            var commentIndex = findIndexById(service.posts[postIndex].comments, data.data.id);
+                            var postIndex = findIndexById(service.posts, postId);
+                            var commentIndex = findIndexById(service.posts[postIndex].comments, commentId);
                             service.posts[postIndex].comments.splice(commentIndex, 1);
                         });
                 },

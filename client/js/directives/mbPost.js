@@ -46,7 +46,7 @@ define(['angular'], function(angular){
                 $scope.removeComment = function(commentId){
                     $scope.externalRemoveComment({
                         commentId: commentId,
-                        postId: $scope.externalPost.id
+                        postId: $scope.externalPost().id
                     });
                 };
                 $scope.editComment = function(commentId, comment){
@@ -60,6 +60,10 @@ define(['angular'], function(angular){
                     $scope.externalAddComment({
                         postId: $scope.post.id,
                         data: comment
+                    }).then(function(data, status){
+                        comment.text = '';
+                    },function(){
+                        console.log('Could not add comment');
                     });
                 };
                 $scope.temporaryAddComment = {};

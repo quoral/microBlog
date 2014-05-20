@@ -18,9 +18,12 @@
         <div class="ui segment" ng-if="post.comments">
             <div class="ui segment" ng-repeat="comment in post.comments track by comment.id">
                 {{ comment.text }}
+                <div class="ui red icon button" ng-show="editable() && removeComment" ng-click="removeComment(comment.id)">
+                    <i class="trash icon"></i>
+                </div>
             </div>
         </div>
-        <form class="ui form" name="commentForm" novalidate>
+        <form ng-if="editable() && addComment" class="ui form" name="commentForm" novalidate>
             <input type="text" name="commentText" ng-model="temporaryAddComment.text" required>
             <button type="submit" class="{{ commentForm.$invalid ? 'disabled' : '' }} green ui button"
                     ng-click="addComment(temporaryAddComment)">
