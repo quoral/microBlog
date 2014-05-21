@@ -1,7 +1,7 @@
 <div class="ui segment">
 
-    <div class="ui icon buttons floated right" ng-show="editable() && !editToggle">
-        <button class="ui right floated red  button" ng-show="removePost" ng-click="removePost({id:post.id})">
+    <div class="ui icon buttons floated right" mb-required-role role="ADMIN" user-id="post.UserId" ng-show="editable() && !editToggle">
+        <button class="ui right floated red  button" ng-show="removePost"   ng-click="removePost({id:post.id})">
             <i class="trash icon"></i>
         </button>
         <button class="ui right floated green  button" ng-show="editPost" ng-click="editToggle = !editToggle">
@@ -18,7 +18,7 @@
         <div class="ui segment" ng-if="post.comments">
             <div class="ui segment" ng-repeat="comment in post.comments | orderBy:'createdAt':false track by comment.id">
                 {{ comment.text }}
-                <div class="ui red icon button floated right" ng-show="editable() && removeComment" ng-click="removeComment(comment.id)">
+                <div class="ui red icon button floated right" ng-show="editable() && removeComment" mb-required-role role="ADMIN" user-id="comment.UserId" ng-click="removeComment(comment.id)">
                     <i class="trash icon"></i>
                 </div>
             </div>

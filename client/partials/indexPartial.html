@@ -1,6 +1,6 @@
 <mb-menu></mb-menu>
 <div class="ui raised segment mainSegment">
-    <div ng-form class="ui form" ng-hide="!roleIsAuthenticated(currentUser.role, roles.poster)" name="postForm"
+    <div ng-form class="ui form" mb-required-role role="POSTER" name="postForm"
          novalidate>
         <div class="input">
             <input type="text" name="postHeader" ng-model="postHeader" placeholder="Post Title" required>

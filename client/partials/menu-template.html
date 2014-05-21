@@ -4,11 +4,11 @@
         <i class="home icon"></i> Home
     </a>
 
-    <a mb-menu-item class="item" href="/admin" ng-if="roleIsAuthenticated(currentUser.role, roles.admin)">
+    <a mb-menu-item class="item" href="/admin" mb-required-role role="ADMIN">
         <i class="mail icon"></i> Admin
     </a>
 
-    <a mb-menu-item class="item" href="/profile" ng-if="currentUser.role">
+    <a mb-menu-item class="item" href="/profile" mb-required-role role="USER">
         <i class="user icon"></i> Profile
     </a>
 
