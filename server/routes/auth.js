@@ -1,8 +1,8 @@
 'use strict';
 var auth = require('./middlewares/auth');
-var routeUtils = require('./utilities/routeUtils');
 module.exports = function(app, passport){
-    
+
+    var routeUtils = require('./utilities/routeUtils')(app);
     app.get('/rest/auth/facebook', passport.authenticate('facebook'));
 
     app.get('/rest/auth/facebook/callback',

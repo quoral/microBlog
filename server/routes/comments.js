@@ -2,12 +2,11 @@
 
 var auth = require('./middlewares/auth');
 var userRoles = require('../config/config').userRoles;
-var routeUtils = require('./utilities/routeUtils');
 module.exports = function(app, passport){
     var Post = app.get('models').Post;
     var User = app.get('models').User;
     var Comment = app.get('models').Comment;
-
+    var routeUtils = require('./utilities/routeUtils')(app);
     app.post('/rest/posts/:id/comments', [auth.requiresLogin, auth.requiresRole(userRoles.user)], function(req, res, next){
         var foundPost = false;
         console.log(req.params.id);

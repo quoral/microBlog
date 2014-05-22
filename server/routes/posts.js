@@ -2,14 +2,17 @@
 
 var auth = require('./middlewares/auth');
 var userRoles = require('../config/config').userRoles;
-var routeUtils = require('./utilities/routeUtils');
 
 module.exports = function(app, passport){
     var Post = app.get('models').Post;
     var User = app.get('models').User;
     var Comment = app.get('models').Comment;
+    var routeUtils = require('./utilities/routeUtils')(app);
+    var io = app.get('socket.io');
+
     app.post('/rest/posts', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res){
         var post = Post.build(req.body);
+
         console.log('Entered posting');
         post.save()
             .error(function(err){
@@ -18,7 +21,10 @@ module.exports = function(app, passport){
             })
             .success(function(newPost){
                 newPost.setUser(req.user).success(function(){
-                    res.send(JSON.stringify(newPost));
+
+                    var payload = JSON.stringify(newPost);
+                    res.send(payload);
+                    io.sockets.emit('created:post', payload);
                 });
 
             });

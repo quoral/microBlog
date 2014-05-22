@@ -1,10 +1,11 @@
 'use strict';
 var auth = require('./middlewares/auth');
 var userRoles = require('../config/config').userRoles;
-var routeUtils = require('./utilities/routeUtils.js');
 module.exports = function(app, passport){
     var User = app.get('models').User;
     var Post = app.get('models').Post;
+    var routeUtils = require('./utilities/routeUtils.js')(app);
+
     app.get('/rest/users', function(req, res){
         var getAllUsers = routeUtils.findAll(User, {}, {include:[Post]});
         getAllUsers(req, res);

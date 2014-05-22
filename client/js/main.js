@@ -3,6 +3,7 @@ require.config({
 	angular: '../lib/angular/angular',
 	angularRoute: '../lib/angular-route/angular-route',
 	angularMocks: '../lib/angular-mocks/angular-mocks',
+    'socket.io': '../lib/socket.io-client/dist/socket.io.min',
 	text: '../lib/requirejs-text/text',
         angularMarkdownDirective: '../lib/angular-markdown-directive/markdown',
         angularSanitize: '../lib/angular-sanitize/angular-sanitize',
@@ -15,17 +16,20 @@ require.config({
             deps:['angular'],
             'exports':'angular.mock'
 	},
-        'angularMarkdownDirective': {
-            deps: ['angularSanitize', 'showdown']
-        },
-        'angularSanitize':{
-            deps: ['angular'],
+    'angularMarkdownDirective': {
+        deps: ['angularSanitize', 'showdown']
+    },
+    'angularSanitize':{
+        deps: ['angular'],
 
-            exports: 'angular.sanitize'
-        },
-        'showdown':{
-            'exports': 'showdown'
-        },
+        exports: 'angular.sanitize'
+    },
+    'showdown':{
+        'exports': 'showdown'
+    },
+    'socket.io': {
+        'exports': 'socket.io'
+    }
         
     },
     priority: [

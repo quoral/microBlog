@@ -1,7 +1,13 @@
-define([''], function(){
+define(['socket.io'], function(io){
     'use strict';
+
     return ['$http', function($http){
         var getAllPromise;
+
+        var socket = io.connect('http://localhost:8081');
+        socket.on('created:post', function (data) {
+            console.log('CREATED', data);
+        });
 
         function findIndexById(list, id) {
             for (var i = 0; i < list.length; i++) {

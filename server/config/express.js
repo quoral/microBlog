@@ -6,7 +6,7 @@ var express = require('express'),
     fs = require('fs'),
     config  = require('./config');
 
-module.exports = function(app, db, passport){
+module.exports = function(app, db, passport, io){
     app.set('showStackError', true);
 
     app.locals.pretty = true;
@@ -18,6 +18,7 @@ module.exports = function(app, db, passport){
     app.set('views', config.root + '/server/views');
     //Singleton for models
     app.set('models', db.models);
+    app.set('socket.io', io);
     app.configure(function(){
         app.use(express.cookieParser());
         app.use(express.bodyParser());
