@@ -43,7 +43,9 @@ module.exports = function(app, passport){
             where: {
                 id: req.params.id
             }
-        });
+        },[function(entity){return entity.UserId === req.user.id;},
+           function(entity){return req.user.role === 'ADMIN';}
+        ]);
         deletePost(req, res);
     });
 
@@ -58,7 +60,10 @@ module.exports = function(app, passport){
                     text: req.body.text,
                     header: req.body.header
                 };
-            },{include:[User, Comment]});
+            },{include:[User, Comment]},
+            [function(entity){return entity.UserId === req.user.id;},
+             function(entity){return req.user.role === 'ADMIN';}
+            ]);
         postPut(req,res);
     });
 

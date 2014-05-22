@@ -1,5 +1,15 @@
 'use strict';
-exports.put = function(Entity, searchObj, updateFunction, options){
+
+function securityCheck(functions, entity){
+    for (var i = 0; i < functions.length; i++){
+        if(functions[i](entity) === true){
+            return true;
+        }
+    }
+    return false;
+}
+
+exports.put = function(Entity, searchObj, updateFunction, options, securityFunctions){
     return function(req, res){
         Entity.find(searchObj)
             .then(function(singleEntity){
@@ -7,6 +17,9 @@ exports.put = function(Entity, searchObj, updateFunction, options){
                     res.status(404).send();
                 }
                 else{
+                    if(securityFunctions && !securityCheck(securityFunctions, singleEntity)){
+                        return res.status(403);
+                    }
                     return singleEntity.updateAttributes(updateFunction(req));
                 }
             })
@@ -33,7 +46,7 @@ exports.findAll = function(Entity, searchObj, options){
     };
 };
 
-exports.del = function(Entity, searchObj){
+exports.del = function(Entity, searchObj, securityFunctions){
     return function(req, res){
         Entity.find(searchObj)
             .then(function(singleEntity){
@@ -42,11 +55,14 @@ exports.del = function(Entity, searchObj){
                     return false;
                 }
                 else{
+                    if(securityFunctions && !securityCheck(securityFunctions, singleEntity)){
+                        return res.status(403);
+                    }
                     return singleEntity.destroy();
                 }
             })
             .then(function(){
-                res.status(200).send();
+                res.status(204).send();
             },function(err){
                 console.log('Failed general delete with', err);
                 res.status(500).send();
@@ -54,7 +70,7 @@ exports.del = function(Entity, searchObj){
     };
 };
 
-exports.find = function(Entity, searchObj, options){
+exports.find = function(Entity, searchObj, options, securityFunctions){
     return function(req, res){
         Entity.find(searchObj, options)
             .success(function(singleEntity){
@@ -62,6 +78,9 @@ exports.find = function(Entity, searchObj, options){
                     res.status(404).send();
                 }
                 else{
+                    if(securityFunctions && !securityCheck(securityFunctions, singleEntity)){
+                        return res.status(403);
+                    }
                     res.send(JSON.stringify(singleEntity));
                 }
             })

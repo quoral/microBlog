@@ -58,13 +58,15 @@ module.exports = function(app, passport){
         getComment(req, res);
     });
 
-    app.del('/rest/posts/:postId/comments/:id', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res, next){
+    app.del('/rest/posts/:postId/comments/:id', [auth.requiresLogin, auth.requiresRole(userRoles.user)], function(req, res, next){
         var deleteComment = routeUtils.del(Comment, {
             where: {
                 id: req.params.id,
                 postId: req.params.postId
             }
-        });
+        },[function(entity){return entity.UserId === req.user.id;},
+            function(entity){return req.user.role === 'ADMIN';}
+        ]);
         deleteComment(req, res);
     });
 
@@ -78,7 +80,10 @@ module.exports = function(app, passport){
             return {
                 text: req.body.text
             };
-        }, {include:[Post]});
+        }, {include:[Post]},
+            [function(entity){return entity.UserId === req.user.id;},
+            function(entity){return req.user.role === 'ADMIN';}
+        ]);
         commentPut(req, res);
     });
 
