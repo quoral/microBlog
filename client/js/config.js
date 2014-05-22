@@ -11,7 +11,18 @@ define([], function(){
                         return $q.reject(rejection);
                     }
                 };
-            }]
+            }],['SocketIo', function (socketIo) {
+                var socketId = '';
+                socketIo.on('server_socket_id', function(data){
+                    socketId = data.socketId;
+                });
+                return {
+                    request: function(config){
+                        config.headers.socketId = socketId;
+                        return config;
+                    }
+                };
+            }],
         ]
     };
 });

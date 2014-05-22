@@ -12,8 +12,7 @@ module.exports = function(app, passport){
 
     app.post('/rest/posts', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res){
         var post = Post.build(req.body);
-
-        console.log('Entered posting');
+        var socketId = req.headers.socketid;
         post.save()
             .error(function(err){
                 console.log('Failed /rest/posts post with', err);
