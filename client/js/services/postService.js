@@ -28,6 +28,7 @@ define([''], function(){
             post: function(postData){
                 return $http.post('rest/posts',postData)
                     .then(function(data, status){
+                        data.data.comments = [];
                         service.posts.push(data.data);
                     });
             },
