@@ -1,19 +1,14 @@
-define(['socket.io'], function(io){
+define([], function(){
     'use strict';
 
-    return ['$http', function($http){
+    return ['$http', 'SocketIo', function($http, io){
         var getAllPromise;
-
-        function findIndexById(list, id) {
-            for (var i = 0; i < list.length; i++) {
-                if (list[i].id === id) {
-                    return i;
-                }
-            }
-        }
-
+        var posts = {};
+        io.on('post:created', function(post){
+            posts[post.id] = post;
+        });
         var service =  {
-            posts: {},
+            posts: posts,
             get: function(id){
                 return $http.get('rest/posts/'+id)
                     .then(function(data){

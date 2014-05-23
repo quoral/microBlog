@@ -13,6 +13,7 @@ module.exports = function(app, passport){
     app.post('/rest/posts', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res){
         var post = Post.build(req.body);
         var socketId = req.headers.socketid;
+
         post.save()
             .error(function(err){
                 console.log('Failed /rest/posts post with', err);
@@ -21,9 +22,12 @@ module.exports = function(app, passport){
             .success(function(newPost){
                 newPost.setUser(req.user).success(function(){
 
-                    var payload = JSON.stringify(newPost);
-                    res.send(payload);
-                    io.sockets.emit('created:post', payload);
+                    var payload = newPost.toJSON();
+                    res.send(JSON.stringify(payload));
+                    if(socketId){
+                        var socket = io.sockets.in(socketId).sockets[socketId];
+                        socket.broadcast.emit('post:created', payload);
+                    }
                 });
 
             });
