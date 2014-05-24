@@ -9,9 +9,11 @@ function securityCheck(functions, entity){
     return false;
 }
 module.exports = function(app) {
+    var io = app.get('socket.io');
     return {
-        put: function (Entity, searchObj, updateFunction, options, securityFunctions) {
+        put: function (Entity, searchObj, updateFunction, options, securityFunctions, eventName) {
             return function (req, res) {
+                var socketId = req.headers.socketid;
                 Entity.find(searchObj)
                     .then(function (singleEntity) {
                         if (singleEntity === null) {
@@ -25,9 +27,14 @@ module.exports = function(app) {
                         }
                     })
                     .then(function (singleEntity) {
-                        return Entity.find(options, singleEntity.dataValues.id);
+                        return Entity.find(singleEntity.dataValues.id, options);
                     })
                     .then(function (singleEntity) {
+                        var payload = singleEntity.toJSON();
+                        if(socketId && eventName !== undefined){
+                            var socket = io.sockets.in(socketId).sockets[socketId];
+                            socket.broadcast.emit(eventName, payload);
+                        }
                         res.status(200).send(JSON.stringify(singleEntity));
                     });
             };
@@ -44,8 +51,10 @@ module.exports = function(app) {
                     });
             };
         },
-        del: function(Entity, searchObj, securityFunctions){
+        del: function(Entity, searchObj, securityFunctions, eventName){
+            var id;
             return function(req, res){
+                var socketId = req.headers.socketid;
                 Entity.find(searchObj)
                     .then(function(singleEntity){
                         if(singleEntity === null){
@@ -56,10 +65,16 @@ module.exports = function(app) {
                             if(securityFunctions && !securityCheck(securityFunctions, singleEntity)){
                                 return res.status(403);
                             }
+                            id = singleEntity.dataValues.id;
                             return singleEntity.destroy();
                         }
                     })
                     .then(function(){
+                        if(socketId && eventName !== undefined){
+                            var socket = io.sockets.in(socketId).sockets[socketId];
+                            socket.broadcast.emit(eventName, id);
+                            console.log('SOCKET wat');
+                        }
                         res.status(204).send();
                     },function(err){
                         console.log('Failed general delete with', err);

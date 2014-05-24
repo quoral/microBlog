@@ -7,6 +7,12 @@ define([], function(){
         io.on('post:created', function(post){
             posts[post.id] = post;
         });
+        io.on('post:modified', function(post){
+            posts[post.id] = post;
+        });
+        io.on('post:removed', function(postId){
+            delete posts[postId];
+        });
         var service =  {
             posts: posts,
             get: function(id){
