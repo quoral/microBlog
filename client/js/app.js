@@ -4,14 +4,16 @@ define([
     'directives',
     'controllers',
     'config',
+    'filters',
     'angularMarkdownDirective',
     'angularRoute',
-], function(angular, services, directives, controllers, config, angularMarkdownDirective, angularRoute){
+], function(angular, services, directives, controllers, config, filters, angularMarkdownDirective, angularRoute){
     'use strict';
     var app = angular.module('microBlog', [
         'ngRoute',
         'microBlog.controllers',
         'microBlog.services',
+        'microBlog.filters',
         'microBlog.directives',
         'btford.markdown'
     ]);
