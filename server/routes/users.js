@@ -25,7 +25,7 @@ module.exports = function(app, passport){
             where: {
                 id: req.params.id
             }
-        });
+        }, 'user:removed');
         deleteUser(req, res);
     });
 
@@ -40,7 +40,7 @@ module.exports = function(app, passport){
                 name: req.body.name,
                 role: req.body.role
             };
-        }, {include:[Post]});
+        }, {include:[Post]}, 'user:modified');
         userPut(req,res);
     });
 
