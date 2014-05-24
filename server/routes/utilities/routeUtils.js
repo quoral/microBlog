@@ -52,7 +52,7 @@ module.exports = function(app) {
             };
         },
         del: function(Entity, searchObj, securityFunctions, eventName){
-            var id;
+            var entity;
             return function(req, res){
                 var socketId = req.headers.socketid;
                 Entity.find(searchObj)
@@ -65,15 +65,14 @@ module.exports = function(app) {
                             if(securityFunctions && !securityCheck(securityFunctions, singleEntity)){
                                 return res.status(403);
                             }
-                            id = singleEntity.dataValues.id;
+                            entity = singleEntity.toJSON();
                             return singleEntity.destroy();
                         }
                     })
                     .then(function(){
                         if(socketId && eventName !== undefined){
                             var socket = io.sockets.in(socketId).sockets[socketId];
-                            socket.broadcast.emit(eventName, id);
-                            console.log('SOCKET wat');
+                            socket.broadcast.emit(eventName, entity);
                         }
                         res.status(204).send();
                     },function(err){

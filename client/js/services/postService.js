@@ -10,9 +10,20 @@ define([], function(){
         io.on('post:modified', function(post){
             posts[post.id] = post;
         });
-        io.on('post:removed', function(postId){
-            delete posts[postId];
+        io.on('post:removed', function(post){
+            delete posts[post.id];
         });
+
+        io.on('comment:created', function(comment){
+            posts[comment.PostId].comments[comment.id] = comment;
+        });
+        io.on('comment:modified', function(comment){
+            posts[comment.PostId].comments[comment.id] = comment;
+        });
+        io.on('comment:removed', function(comment){
+            delete posts[comment.PostId].comments[comment.id];
+        });
+
         var service =  {
             posts: posts,
             get: function(id){

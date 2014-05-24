@@ -7,8 +7,11 @@ module.exports = function(app, passport){
     var User = app.get('models').User;
     var Comment = app.get('models').Comment;
     var routeUtils = require('./utilities/routeUtils')(app);
+    var io = app.get('socket.io');
+
     app.post('/rest/posts/:id/comments', [auth.requiresLogin, auth.requiresRole(userRoles.user)], function(req, res, next){
         var foundPost = false;
+        var socketId = req.headers.socketid;
         console.log(req.params.id);
         Post.find(req.params.id)
             .then(function(post){
@@ -29,7 +32,12 @@ module.exports = function(app, passport){
                 return savedComment.setPost(foundPost);
             })
             .then(function(newComment){
-                res.send(JSON.stringify(newComment));
+                var payload = newComment.toJSON();
+                if(socketId){
+                    var socket = io.sockets.in(socketId).sockets[socketId];
+                    socket.broadcast.emit('comment:created', payload);
+                }
+                res.send(JSON.stringify(payload));
             },function(err){
                 console.log('Failed /rest/posts/:id/comments post with', err);
                 res.status(500).send();
@@ -65,7 +73,7 @@ module.exports = function(app, passport){
             }
         },[function(entity){return entity.UserId === req.user.id;},
             function(entity){return req.user.role === 'ADMIN';}
-        ]);
+        ], 'comment:removed');
         deleteComment(req, res);
     });
 
@@ -82,7 +90,7 @@ module.exports = function(app, passport){
         }, {include:[Post]},
             [function(entity){return entity.UserId === req.user.id;},
             function(entity){return req.user.role === 'ADMIN';}
-        ]);
+        ],'comment:modified');
         commentPut(req, res);
     });
 
