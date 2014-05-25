@@ -1,0 +1,36 @@
+<mb-menu></mb-menu>
+<div class="ui two column grid basic segment">
+    <div class="column">
+        <div ng-form class="ui form" mb-required-role role="POSTER" name="postForm" novalidate>
+            <div class="input">
+                <input type="text" name="postHeader" ng-model="postHeader" placeholder="Post Title" required>
+            </div>
+            <div class="field">
+                <textarea name="postText" ng-model="postText" placeholder="Post Text" required></textarea>
+            </div>
+            <button class="{{postForm.$invalid ? 'disabled' : ''}} green ui button "
+                    type="submit"
+                    ng-click="addPost(postText, postHeader)"
+                    ng-disabled="postForm.$invalid">Create Blog Post
+            </button>
+
+
+        </div>
+    </div>
+    <div class="ui vertical icon divider">
+        <i class="circular right arrow icon"></i>
+    </div>
+    <div class="column">
+        <h2 class="ui dividing header">Markdown Preview</h2>
+
+        <div ng-show="postText || postHeader" mb-post="{text:postText, header:postHeader}">
+
+        </div>
+
+        <div ng-show="!postText && !postHeader">
+            <div class="yellow ui message">
+                Start typing for a markdown preview on the content
+            </div>
+        </div>
+    </div>
+</div>

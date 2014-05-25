@@ -16,6 +16,11 @@ define(['angular', 'app'], function(angular, app){
             controller: 'ProfileCtrl',
             requiresUserRole: userRoles.user
         });
+        $routeProvider.when('/create', {
+            templateUrl: 'client/partials/createPostPartial.html',
+            controller: 'CreatePostCtrl',
+            requiresUserRole: userRoles.poster
+        });
 	$routeProvider.otherwise({redirectTo: '/'});
 
         $locationProvider.html5Mode(true);

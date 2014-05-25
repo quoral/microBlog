@@ -1,10 +1,10 @@
 .postText
 {
-    text-indent: 0px;
+    text-indent: 0;
 
 }
 
-.ui .segment {
+* {
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 
 }

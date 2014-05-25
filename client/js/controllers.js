@@ -20,6 +20,11 @@ define(['angular'], function(angular){
             require(['controllers/profileCtrl'], function(ProfileCtrl){
                 $injector.invoke(ProfileCtrl, this, {'$scope': $scope});
             });
+        }])
+        .controller('CreatePostCtrl', ['$scope', '$injector', function($scope, $injector){
+            require(['controllers/createPostCtrl'], function(createPostCtrl){
+                $injector.invoke(createPostCtrl, this, {'$scope': $scope});
+            });
         }]);
 
 });

@@ -4,16 +4,26 @@
         <i class="home icon"></i> Home
     </a>
 
+    <a mb-menu-item class="item" href="/create" mb-required-role role="POSTER">
+        <i class="pencil icon"></i>Write
+    </a>
     <a mb-menu-item class="item" href="/admin" mb-required-role role="ADMIN">
         <i class="mail icon"></i> Admin
     </a>
+
 
     <a mb-menu-item class="item" href="/profile" mb-required-role role="USER">
         <i class="user icon"></i> Profile
     </a>
 
+
     <div class="right menu">
-        <mb-login-buttons ng-if="!currentUser.role"> </mb-login-buttons>
-        <a ng-if="currentUser.role" class="ui button" ng-click="logout()">Logout</a>
+        <div ng-if="!currentUser.role" class="ui simple dropdown item">
+            Login <i class="dropdown icon"></i>
+            <div class="menu">
+                <mb-login-buttons > </mb-login-buttons>
+            </div>
+        </div>
+        <a mb-required-role role="USER" class="ui button" ng-click="logout()">Logout</a>
     </div>
 </div>
