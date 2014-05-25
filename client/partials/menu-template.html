@@ -19,11 +19,11 @@
 
     <div class="right menu">
         <div ng-if="!currentUser.role" class="ui simple dropdown item">
-            Login <i class="dropdown icon"></i>
+            Sign In Or Create <i class="dropdown icon"></i>
             <div class="menu">
                 <mb-login-buttons > </mb-login-buttons>
             </div>
         </div>
-        <a mb-required-role role="USER" class="ui button" ng-click="logout()">Logout</a>
+        <a mb-required-role role="USER" class="ui item" ng-click="logout()">Logout <i class="sign out icon"></i></a>
     </div>
 </div>
