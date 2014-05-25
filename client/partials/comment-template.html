@@ -1,27 +1,35 @@
-<div ng-show="!editToggle">
-    <p>{{ comment.text }}</p>
-    <div class="ui icon buttons floated right" mb-required-role role="ADMIN" user-id="comment.UserId" ng-show="editable() && !editToggle">
-        <button class="ui right floated red  button" ng-click="removeComment()">
-            <i class="trash icon"></i>
-        </button>
-        <button class="ui right floated green  button" ng-click="editToggle = !editToggle">
-            <i class="edit icon"></i>
-        </button>
-    </div>
+<div class="comment">
+        <div class="content">
+            <div class="text" ng-show="!editToggle">{{comment.text}}</div>
+            <form class="ui form" ng-if="editToggle" name="commentForm" novalidate>
+                <div class="inline field">
+                    <input type="text" name="commentText" ng-model="comment.text" placeholder="Post Title" required>
+                    <div class="tiny ui buttons">
+                        <button type="submit"
+                                class="tiny {{commentForm.$invalid ? 'disabled' : ''}} green ui button"
+                                ng-click="editComment(comment)"
+                                ng-disabled="commentForm.$invalid">
+                            Save
+                        </button>
+                        <div class="or"></div>
+                        <button class="tiny red ui button"
+                                ng-click="editCancel()">
+                            Cancel
+                        </button>
+                    </div>
+
+
+                </div>
+
+            </form>
+            <div class="actions" ng-show="!editToggle" mb-required-role role="ADMIN" user-id="comment.UserId" >
+                <a class="edit" ng-click="editToggle = !editToggle">
+                    Edit<i class="edit icon"></i>
+                </a>
+                <a class="delete" ng-click="removeComment()">
+                    Remove<i class="trash icon"></i>
+                </a>
+            </div>
+
+        </div>
 </div>
-<form class="ui form" ng-if="editToggle" name="commentForm" novalidate>
-    <div class="input">
-        <input type="text" name="commentText" ng-model="comment.text" placeholder="Post Title" required>
-    </div>
-    <button type="submit"
-            class="{{commentForm.$invalid ? 'disabled' : ''}} green ui button"
-            ng-click="editComment(comment)"
-            ng-disabled="commentForm.$invalid">
-        Save
-    </button>
-    <button type="submit"
-            class="red ui button"
-            ng-click="editCancel()">
-        Cancel
-    </button>
-</form>

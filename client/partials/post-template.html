@@ -15,8 +15,8 @@
         <div class="postText" btf-markdown="post.text">
         </div>
 
-        <div class="ui segment" ng-if="post.comments">
-            <div class="ui segment" ng-repeat="comment in post.comments | orderBy:'createdAt':false track by comment.id"
+        <div class="ui comments" ng-if="post.comments">
+            <div ng-repeat="comment in post.comments | orderBy:'createdAt':false track by comment.id"
                  mb-comment="comment"
                  editable="editable()">
 
