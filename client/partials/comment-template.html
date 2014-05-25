@@ -1,0 +1,27 @@
+<div ng-show="!editToggle">
+    <p>{{ comment.text }}</p>
+    <div class="ui icon buttons floated right" mb-required-role role="ADMIN" user-id="comment.UserId" ng-show="editable() && !editToggle">
+        <button class="ui right floated red  button" ng-click="removeComment()">
+            <i class="trash icon"></i>
+        </button>
+        <button class="ui right floated green  button" ng-click="editToggle = !editToggle">
+            <i class="edit icon"></i>
+        </button>
+    </div>
+</div>
+<form class="ui form" ng-if="editToggle" name="commentForm" novalidate>
+    <div class="input">
+        <input type="text" name="commentText" ng-model="comment.text" placeholder="Post Title" required>
+    </div>
+    <button type="submit"
+            class="{{commentForm.$invalid ? 'disabled' : ''}} green ui button"
+            ng-click="editComment(comment)"
+            ng-disabled="commentForm.$invalid">
+        Save
+    </button>
+    <button type="submit"
+            class="red ui button"
+            ng-click="editCancel()">
+        Cancel
+    </button>
+</form>

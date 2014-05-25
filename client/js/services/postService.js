@@ -1,4 +1,4 @@
-define([], function(){
+define(['angular'], function(angular){
     'use strict';
 
     return ['$http', 'SocketIo', function($http, io){
@@ -8,7 +8,7 @@ define([], function(){
             posts[post.id] = post;
         });
         io.on('post:modified', function(post){
-            posts[post.id] = post;
+            angular.extend(posts[post.id], post);
         });
         io.on('post:removed', function(post){
             delete posts[post.id];
@@ -64,7 +64,7 @@ define([], function(){
             put: function(id, post) {
                 return $http.put('rest/posts/' + id, post)
                     .then(function (data, status) {
-                        service.posts[data.data.id] = data.data;
+                        angular.extend(service.posts[data.data.id], data.data);
                     });
             },
             comment: {
@@ -97,8 +97,11 @@ define([], function(){
                             delete service.posts[postId].comments[commentId];
                         });
                 },
-                put: function(id, post){
-                    return null;
+                put: function(postId, commentId, post){
+                    return $http.put('rest/posts/'+postId+'/comments/'+commentId, post)
+                        .then(function(data, status){
+                            angular.extend(service.posts[data.data.PostId].comments[data.data.id], data.data);
+                        });
                 }
             }
         };

@@ -19,9 +19,7 @@ define([], function(){
                         }, function(data, status){
                         });
                 };
-
                 $scope.addComment = postService.comment.post;
-                $scope.removeComment = postService.comment.delete;
 
                 $scope.$watch(function () {
                         return postService.posts;

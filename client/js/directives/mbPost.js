@@ -22,12 +22,6 @@ define(['angular'], function(angular){
                 if(attrs.addComment === undefined){
                     scope.addComment = false;
                 }
-                if(attrs.removeComment === undefined){
-                    scope.removeComment = false;
-                }
-                if(attrs.editComment === undefined){
-                    scope.editComment = false;
-                }
             },
             controller: ['$scope', function($scope){
                 $scope.editToggle = false;
@@ -43,19 +37,6 @@ define(['angular'], function(angular){
                     },
                     true);
 
-                $scope.removeComment = function(commentId){
-                    $scope.externalRemoveComment({
-                        commentId: commentId,
-                        postId: $scope.externalPost().id
-                    });
-                };
-                $scope.editComment = function(commentId, comment){
-                    $scope.externalEditComment({
-                        commentId: commentId,
-                        postId: $scope.externalPost.id,
-                        data: comment
-                    });
-                };
                 $scope.addComment = function(comment){
                     $scope.externalAddComment({
                         postId: $scope.post.id,

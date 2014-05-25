@@ -1,4 +1,4 @@
-define(['angular', 'services', 'directives/mbPosts', 'directives/mbPost'], function(angular, services, mbPosts, mbPost) {
+define(['angular', 'services', 'directives/mbPosts', 'directives/mbPost', 'directives/mbComment'], function(angular, services, mbPosts, mbPost, mbComment) {
     'use strict';
 
     /* Directives */
@@ -69,6 +69,6 @@ define(['angular', 'services', 'directives/mbPosts', 'directives/mbPost'], funct
             };
         }])
         .directive('mbPosts', mbPosts)
-        .directive('mbPost', mbPost);
-
+        .directive('mbPost', mbPost)
+        .directive('mbComment', mbComment);
 });

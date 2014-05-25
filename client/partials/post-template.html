@@ -16,11 +16,10 @@
         </div>
 
         <div class="ui segment" ng-if="post.comments">
-            <div class="ui segment" ng-repeat="comment in post.comments | orderBy:'createdAt':false track by comment.id">
-                {{ comment.text }}
-                <div class="ui red icon button floated right" ng-show="editable() && removeComment" mb-required-role role="ADMIN" user-id="comment.UserId" ng-click="removeComment(comment.id)">
-                    <i class="trash icon"></i>
-                </div>
+            <div class="ui segment" ng-repeat="comment in post.comments | orderBy:'createdAt':false track by comment.id"
+                 mb-comment="comment"
+                 editable="editable()">
+
             </div>
         </div>
         <form ng-if="editable() && addComment" class="ui form" name="commentForm" novalidate>
