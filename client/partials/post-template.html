@@ -14,25 +14,28 @@
         </div>
         <div class="postText" btf-markdown="post.text">
         </div>
-        <div class="ui blue inverted segment" ng-if="post.createdAt">{{ post.user.name }} wrote on {{ post.createdAt | date:'medium' }}</div>
-
+        <div class="ui blue inverted segment" ng-if="post.createdAt && post.user">{{ post.user.name }} wrote on {{ post.createdAt | date:'medium' }}</div>
         <div class="ui comments" ng-if="post.comments">
             <h4 class="ui header">
                 <i class="icon inverted circular blue comment"></i> Comments
             </h4>
+
             <div ng-repeat="comment in post.comments | orderObjectBy:'createdAt':false track by comment.id"
                  mb-comment="comment"
+                 class="comment"
                  editable="editable()">
 
             </div>
         </div>
         <form ng-if="editable() && addComment" class="ui form" name="commentForm" novalidate>
-            <input type="text" name="commentText" ng-model="temporaryAddComment.text" required>
-            <button type="submit" class="{{ commentForm.$invalid ? 'disabled' : '' }} green ui button"
-                    ng-click="addComment(temporaryAddComment)"
-                    ng-disabled="commentForm.$invalid">
-                Save
-            </button>
+            <div class="inline field">
+                <input type="text" name="commentText" ng-model="temporaryAddComment.text" required>
+                <button type="submit" class="{{ commentForm.$invalid ? 'disabled' : '' }} green ui button"
+                        ng-click="addComment(temporaryAddComment)"
+                        ng-disabled="commentForm.$invalid">
+                    ADD
+                </button>
+            </div>
         </form>
     </div>
     <form class="ui form" ng-if="editToggle" name="postForm" novalidate>

@@ -1,38 +1,37 @@
-<div class="comment">
-        <div class="content">
-            <div class="metadata">
-                <div class="date">{{ date | date:'HH:mm:ss'}} ago</div>
+<div class="content">
+    <a class="ui green author">{{ comment.user.name }}</a>
+    <div class="metadata">
+        <div class="date">{{ date | date:'HH:mm:ss'}} ago</div>
+    </div>
+    <div class="text" ng-show="!editToggle">{{comment.text}}</div>
+    <form class="ui form" ng-if="editToggle" name="commentForm" novalidate>
+        <div class="inline field">
+            <input type="text" name="commentText" ng-model="comment.text" placeholder="Post Title" required>
+            <div class="tiny ui buttons">
+                <button type="submit"
+                        class="tiny {{commentForm.$invalid ? 'disabled' : ''}} green ui button"
+                        ng-click="editComment(comment)"
+                        ng-disabled="commentForm.$invalid">
+                    Save
+                </button>
+                <div class="or"></div>
+                <button class="tiny red ui button"
+                        ng-click="editCancel()">
+                    Cancel
+                </button>
             </div>
-            <div class="text" ng-show="!editToggle">{{comment.text}}</div>
-            <form class="ui form" ng-if="editToggle" name="commentForm" novalidate>
-                <div class="inline field">
-                    <input type="text" name="commentText" ng-model="comment.text" placeholder="Post Title" required>
-                    <div class="tiny ui buttons">
-                        <button type="submit"
-                                class="tiny {{commentForm.$invalid ? 'disabled' : ''}} green ui button"
-                                ng-click="editComment(comment)"
-                                ng-disabled="commentForm.$invalid">
-                            Save
-                        </button>
-                        <div class="or"></div>
-                        <button class="tiny red ui button"
-                                ng-click="editCancel()">
-                            Cancel
-                        </button>
-                    </div>
 
-
-                </div>
-
-            </form>
-            <div class="actions" ng-show="!editToggle" mb-required-role role="ADMIN" user-id="comment.UserId" >
-                <a class="edit" ng-click="editToggle = !editToggle">
-                    Edit<i class="edit icon"></i>
-                </a>
-                <a class="delete" ng-click="removeComment()">
-                    Remove<i class="trash icon"></i>
-                </a>
-            </div>
 
         </div>
+
+    </form>
+    <div class="actions" ng-show="!editToggle" mb-required-role role="ADMIN" user-id="comment.UserId" >
+        <a class="edit" ng-click="editToggle = !editToggle">
+            Edit<i class="edit icon"></i>
+        </a>
+        <a class="delete" ng-click="removeComment()">
+            Remove<i class="trash icon"></i>
+        </a>
+    </div>
+
 </div>
