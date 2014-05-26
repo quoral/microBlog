@@ -9,6 +9,7 @@ define(['angular'], function(angular){
             },
             controller: ['$scope', 'postService', function($scope, postService){
                 $scope.editToggle = false;
+                $scope.comment = angular.copy($scope.externalComment());
                 $scope.$watch(function () {
                         return $scope.externalComment();
                     },
@@ -35,6 +36,7 @@ define(['angular'], function(angular){
                         }
                     );
                 };
+                $scope.date = new Date(Math.abs(new Date() - new Date($scope.comment.createdAt)));
                 $scope.editCancel = function(){
                     $scope.editToggle = false;
                     $scope.comment = angular.copy($scope.externalComment());

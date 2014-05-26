@@ -1,5 +1,8 @@
 <div class="comment">
         <div class="content">
+            <div class="metadata">
+                <div class="date">{{ date | date:'HH:mm:ss'}} ago</div>
+            </div>
             <div class="text" ng-show="!editToggle">{{comment.text}}</div>
             <form class="ui form" ng-if="editToggle" name="commentForm" novalidate>
                 <div class="inline field">

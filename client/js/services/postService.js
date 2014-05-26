@@ -1,7 +1,7 @@
 define(['angular'], function(angular){
     'use strict';
 
-    return ['$http', 'SocketIo', function($http, io){
+    return ['$http', 'SocketIo', 'userService', function($http, io, userService){
         var getAllPromise;
         var posts = {};
         io.on('post:created', function(post){
@@ -29,7 +29,11 @@ define(['angular'], function(angular){
             get: function(id){
                 return $http.get('rest/posts/'+id)
                     .then(function(data){
-                        service.posts[data.data.id] = data.data;
+                        if(service.posts[data.data.id] === undefined){
+                            service.posts[data.data.id] = {};
+                        }
+                        angular.extend(service.users[data.data.id], data.data);
+                        service.posts[data.data.id].user = userService.getSingleUser(data.data.UserId);
                     });
             },
             getAll: function(forceReload){
@@ -42,6 +46,7 @@ define(['angular'], function(angular){
                                     comments[comment.id] = comment;
                                 });
                                 post.comments = comments;
+                                post.user = userService.getSingleUser(post.UserId);
                                 service.posts[post.id] = post;
                             });
                         });

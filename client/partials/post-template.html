@@ -14,9 +14,13 @@
         </div>
         <div class="postText" btf-markdown="post.text">
         </div>
+        <div class="ui blue inverted segment" ng-if="post.createdAt">{{ post.user.name }} wrote on {{ post.createdAt | date:'medium' }}</div>
 
         <div class="ui comments" ng-if="post.comments">
-            <div ng-repeat="comment in post.comments | orderBy:'createdAt':false track by comment.id"
+            <h4 class="ui header">
+                <i class="icon inverted circular blue comment"></i> Comments
+            </h4>
+            <div ng-repeat="comment in post.comments | orderObjectBy:'createdAt':false track by comment.id"
                  mb-comment="comment"
                  editable="editable()">
 

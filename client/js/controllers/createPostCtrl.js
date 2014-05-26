@@ -1,4 +1,6 @@
 define([], function() {
+    'use strict';
+
     return ['$scope', 'postService', function($scope, postService) {
         $scope.clearForm = function () {
             $scope.postHeader = '';

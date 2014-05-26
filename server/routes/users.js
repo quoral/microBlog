@@ -12,11 +12,11 @@ module.exports = function(app, passport){
     });
     
     app.get('/rest/users/:id', function(req, res){
-        var getUser = routeUtils.get(User, {
+        var getUser = routeUtils.find(User, {
             where: {
                 id: req.params.id
             }
-        }, {include:[Post]});
+        }, {});
         getUser(req, res);
     });
 
@@ -40,7 +40,7 @@ module.exports = function(app, passport){
                 name: req.body.name,
                 role: req.body.role
             };
-        }, {include:[Post]}, 'user:modified');
+        }, {}, 'user:modified');
         userPut(req,res);
     });
 
