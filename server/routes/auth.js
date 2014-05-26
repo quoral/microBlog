@@ -35,7 +35,7 @@ module.exports = function(app, passport){
                 username: req.body.username,
                 name: req.body.name
             };
-        }, {});
+        }, {}, [function(){return true;}], 'user:modified');
         userPut(req,res);
     });
     

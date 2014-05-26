@@ -40,7 +40,7 @@ module.exports = function(app, passport){
                 name: req.body.name,
                 role: req.body.role
             };
-        }, {}, 'user:modified');
+        }, {}, [function(){return true;}], 'user:modified');
         userPut(req,res);
     });
 
