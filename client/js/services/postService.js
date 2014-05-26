@@ -5,8 +5,9 @@ define(['angular'], function(angular){
         var getAllPromise;
         var posts = {};
         io.on('post:created', function(post){
-            posts[post.id] = post;
+            post.comments = {};
             post.user = userService.getSingleUser(post.UserId);
+            posts[post.id] = post;
         });
         io.on('post:modified', function(post){
             angular.extend(posts[post.id], post);
@@ -59,7 +60,8 @@ define(['angular'], function(angular){
             post: function(postData){
                 return $http.post('rest/posts',postData)
                     .then(function(data, status){
-                        data.data.comments = [];
+                        data.data.comments = {};
+                        data.data.user = userService.getSingleUser(data.data.UserId);
                         service.posts[data.data.id] = data.data;
                     });
             },
