@@ -77,7 +77,7 @@ module.exports = function(app, passport){
         deleteComment(req, res);
     });
 
-    app.put('/rest/posts/:postId/comments/:commentId', [auth.requiresLogin, auth.requiresRole(userRoles.admin)], function(req, res){
+    app.put('/rest/posts/:postId/comments/:commentId', [auth.requiresLogin, auth.requiresRole(userRoles.user)], function(req, res){
         var commentPut = routeUtils.put(Comment, {
             where: {
                 postId: req.params.postId,
@@ -87,7 +87,7 @@ module.exports = function(app, passport){
             return {
                 text: req.body.text
             };
-        }, {include:[Post]},
+        }, {},
             [function(entity){return entity.UserId === req.user.id;},
             function(entity){return req.user.role === 'ADMIN';}
         ],'comment:modified');

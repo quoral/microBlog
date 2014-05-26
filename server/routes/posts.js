@@ -47,7 +47,7 @@ module.exports = function(app, passport){
         getPost(req, res);
     });
 
-    app.del('/rest/posts/:id', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res){
+    app.del('/rest/posts/:id', [auth.requiresLogin, auth.requiresRole(userRoles.user)], function(req, res){
         var deletePost = routeUtils.del(Post, {
             where: {
                 id: req.params.id
@@ -58,7 +58,7 @@ module.exports = function(app, passport){
         deletePost(req, res);
     });
 
-    app.put('/rest/posts/:id', [auth.requiresLogin, auth.requiresRole(userRoles.poster)], function(req, res){
+    app.put('/rest/posts/:id', [auth.requiresLogin, auth.requiresRole(userRoles.user)], function(req, res){
         var postPut = routeUtils.put(Post, {
                 where: {
                     id: req.params.id

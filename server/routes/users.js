@@ -25,7 +25,7 @@ module.exports = function(app, passport){
             where: {
                 id: req.params.id
             }
-        }, 'user:removed');
+        }, [function(){return true;}], 'user:removed');
         deleteUser(req, res);
     });
 
