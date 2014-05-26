@@ -1,7 +1,12 @@
-define([''], function(){
+define(['angular'], function(angular){
     'use strict';
-    return ['$http', '$location','userRoles', function($http, $location, userRoles){
+    return ['$http', '$location','userRoles', 'SocketIo', function($http, $location, userRoles, io){
         var currentUserPromise;
+        io.on('user:modified', function(user){
+            if(user.id === service.currentUser.id){
+                angular.extend(service.currentUser, user);
+            }
+        });
         var service = {
             currentUser: {},
             getUserInfo: function(forceReload){

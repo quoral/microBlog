@@ -1,8 +1,18 @@
 define(['angular'], function(angular){
     'use strict';
     var users = {};
-    return ['$http', function($http){
+    return ['$http', 'SocketIo', function($http, io){
         var getAllPromise;
+        io.on('user:created', function(user){
+            users[user.id] = user;
+        });
+        io.on('user:modified', function(user){
+            angular.extend(users[user.id], user);
+        });
+        io.on('user:removed', function(user){
+            delete users[user.id];
+        });
+
         var service =  {
             users: users,
             get: function(id){
@@ -28,7 +38,7 @@ define(['angular'], function(angular){
                     return user;
                 }
                 else{
-                    return service.users[id]
+                    return service.users[id];
                 }
             },
             getAll: function(forceReload){
@@ -52,7 +62,7 @@ define(['angular'], function(angular){
             put: function(id, postData){
                 return $http.put('rest/users/'+id, postData)
                     .then(function(data, status){
-                        angular.extend(service.posts[data.data.id], data.data)
+                        angular.extend(service.posts[data.data.id], data.data);
                     });
             }
         };

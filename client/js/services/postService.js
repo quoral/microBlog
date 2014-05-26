@@ -6,6 +6,7 @@ define(['angular'], function(angular){
         var posts = {};
         io.on('post:created', function(post){
             posts[post.id] = post;
+            post.user = userService.getSingleUser(post.UserId);
         });
         io.on('post:modified', function(post){
             angular.extend(posts[post.id], post);
@@ -16,6 +17,7 @@ define(['angular'], function(angular){
 
         io.on('comment:created', function(comment){
             posts[comment.PostId].comments[comment.id] = comment;
+            comment.user = userService.getSingleUser(comment.UserId);
         });
         io.on('comment:modified', function(comment){
             posts[comment.PostId].comments[comment.id] = comment;
@@ -43,6 +45,7 @@ define(['angular'], function(angular){
                             data.data.forEach(function(post){
                                 var comments = {};
                                 post.comments.forEach(function(comment){
+                                    comment.user = userService.getSingleUser(comment.UserId);
                                     comments[comment.id] = comment;
                                 });
                                 post.comments = comments;
@@ -86,14 +89,18 @@ define(['angular'], function(angular){
                             var comments = {};
                             data.data.forEach(function(comment){
                                 comments[comment.id] = comment;
+                                comment.user = userService.getSingleUser(comment.UserId);
                             });
+
                             service.posts[postId].comments = comments;
                         });
                 },
                 post: function(postId, postData){
                     return $http.post('rest/posts/'+postId+'/comments',postData)
                         .then(function(data, status){
+                            data.data.user = userService.getSingleUser(data.data.UserId);
                             service.posts[data.data.PostId].comments[data.data.id] = data.data;
+
                         });
                 },
                 delete: function(postId, commentId){
