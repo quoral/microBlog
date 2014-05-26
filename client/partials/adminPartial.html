@@ -41,16 +41,20 @@
                             </div>
                         </div>
                         <div class="ui column">
-                            <div class="ui small buttons floated right">
-                                <div class="ui positive circular button" ng-click="editUser(user.id, user)">Save</div>
-                                <div class="or"></div>
-                                <div class="ui negative circular button" ng-click="removeUser(user.id)">Delete</div>
-                            </div>
-                            <div class="floated right ui button" ng-click="showField = ! showField">
-                                User's Posts <i ng-class="{down:!showField, up:showField}" class="circle icon"></i>
-                            </div>
-                        </div>
+                            <div class="ui vertical labeled icon buttons floated right">
+                                <div class="ui negative button" ng-click="removeUser(user.id)">
+                                    <i class="save icon"></i> Delete
+                                </div>
 
+                                <div class="ui positive button" ng-click="editUser(user.id, user)">
+                                    <i class="remove icon"></i> Save
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="bottom attached ui button" ng-click="showField = ! showField">
+                            User's Posts <i ng-class="{down:!showField, up:showField}" class="circle icon"></i>
+                        </div>
                     </div>
                     <div class="ui raised segment" ng-if="showField && user.posts">
                         <div ng-repeat="post in user.posts | orderBy:'createdAt':true"
