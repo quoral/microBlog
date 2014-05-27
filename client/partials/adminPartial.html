@@ -42,15 +42,14 @@
                         </div>
                         <div class="ui column">
                             <div class="ui vertical labeled icon buttons floated right">
-                                <div class="ui negative button" ng-click="removeUser(user.id)">
-                                    <i class="save icon"></i> Delete
+                                <div class="ui negative button" ng-click="deleteModalShow = true">
+                                    <i class="remove icon"></i> Delete
                                 </div>
 
                                 <div class="ui positive button" ng-click="editUser(user.id, user)">
-                                    <i class="remove icon"></i> Save
+                                    <i class="save icon"></i> Save
                                 </div>
                             </div>
-
                         </div>
                         <div class="bottom attached ui button" ng-click="showField = ! showField">
                             User's Posts <i ng-class="{down:!showField, up:showField}" class="circle icon"></i>
@@ -61,8 +60,24 @@
                              mb-post="post">
                         </div>
                     </div>
+
+                    <div mb-modal="{{ deleteModalShow }}" class="ui small modal" on-hidden="deleteModalShow = false" on-approve="removeUser(user.id)">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            Modal Title
+                        </div>
+                        <div class="content">
+                            Are your sure you want to delete the user?
+                        </div>
+                        <div class="actions">
+                            <div class="ui button">Cancel</div>
+                            <div class="ui negative approve button"><i class="remove icon"></i>OK</div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
+
     </div>
 </div>
+
