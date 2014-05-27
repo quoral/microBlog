@@ -1,8 +1,10 @@
 define(['socket.io'], function(io){
     'use strict';
 
-    var socket = io.connect('http://localhost:8081');
-    return ['$rootScope', function($rootScope){
+    return ['$rootScope', '$location', function($rootScope, $location){
+        var formatedConnectionUrl = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+        var socket = io.connect(formatedConnectionUrl);
+
         return {
             on: function (eventName, callback) {
                 socket.on(eventName, function () {
