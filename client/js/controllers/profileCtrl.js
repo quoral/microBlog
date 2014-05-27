@@ -8,6 +8,9 @@ define([], function(){
                     console.log('Saved data');
                 });
         };
+        $scope.remove = function(){
+            authService.delete();
+        };
         $scope.$apply();
     }];
 });

@@ -37,6 +37,13 @@ define(['angular'], function(angular){
                 return promise;
 
             },
+            delete: function(){
+                var promise = $http.delete('/rest/auth/thisUser');
+                    promise.then(function(data){
+                        service.currentUser = {};
+                    });
+                return promise;
+            },
             roleIsAuthenticated: function(role, requiresRole){
                 if('ADMIN' === requiresRole &&
                    'ADMIN' === role){

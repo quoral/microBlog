@@ -75,7 +75,7 @@ module.exports = function(app) {
                                     res.status(204).send();
                                 }).error(function(err){
                                     res.status(500).send();
-                                });;
+                                });
                         }
                     }).error(function(err){
                         res.status(500).send();
