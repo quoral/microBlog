@@ -38,7 +38,17 @@ module.exports = function(app, passport){
         }, {}, [function(){return true;}], 'user:modified');
         userPut(req,res);
     });
-    
+
+    app.delete('/rest/auth/thisUser', auth.requiresLogin, function(req, res){
+        var User = app.get('models').User;
+        var deleteUser = routeUtils.del(User, {
+            where: {
+                id: req.user.dataValues.id
+            }
+        }, [function(){return true;}], 'user:removed');
+        deleteUser(req, res);
+    });
+
     app.get('/rest/auth/logout', auth.requiresLogin, function(req, res){
         req.logout();
         res.send(200);
