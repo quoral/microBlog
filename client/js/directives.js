@@ -1,4 +1,4 @@
-define(['angular', 'semanticUi','services', 'directives/mbPosts', 'directives/mbPost', 'directives/mbComment', 'directives/mbRequiredRole', 'directives/mbModal'], function(angular, semantic, services, mbPosts, mbPost, mbComment, mbRequiredRole, mbModal) {
+define(['angular', 'semanticUi','services', 'directives/mbPosts', 'directives/mbPost', 'directives/mbComment', 'directives/mbRequiredRole', 'directives/mbModal', 'directives/mbDimmer'], function(angular, semantic, services, mbPosts, mbPost, mbComment, mbRequiredRole, mbModal, mbDimmer) {
     'use strict';
 
     //Stolen from angular
@@ -38,6 +38,7 @@ define(['angular', 'semanticUi','services', 'directives/mbPosts', 'directives/mb
                 };
         }])
         .directive('mbModal', mbModal)
+        .directive('mbDimmer', mbDimmer)
         .directive('mbRequiredRole', mbRequiredRole)
         .directive('mbPosts', mbPosts)
         .directive('mbPost', mbPost)

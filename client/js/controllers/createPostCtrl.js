@@ -10,6 +10,7 @@ define([], function() {
         $scope.addPost = function (postText, postHeader) {
             postService.post({text: postText, header: postHeader})
                 .then(function (data, status) {
+                    $scope.createdPost = true;
                     $scope.clearForm();
                 }, function (data, status) {
                     console.log('Failed adding post', status);
