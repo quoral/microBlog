@@ -23,19 +23,19 @@ module.exports = function(app) {
                             if (securityFunctions && !securityCheck(securityFunctions, singleEntity)) {
                                 return res.status(403);
                             }
-                            return singleEntity.updateAttributes(updateFunction(req));
+                            return singleEntity.updateAttributes(updateFunction(req))
+                                .then(function (singleEntity) {
+                                    Entity.find(singleEntity.dataValues.id, options)
+                                        .then(function (singleEntity) {
+                                            var payload = singleEntity.toJSON();
+                                            if(socketId && eventName !== undefined){
+                                                var socket = io.sockets.in(socketId).sockets[socketId];
+                                                socket.broadcast.emit(eventName, payload);
+                                            }
+                                            res.status(200).send(JSON.stringify(singleEntity));
+                                        });
+                                });
                         }
-                    })
-                    .then(function (singleEntity) {
-                        return Entity.find(singleEntity.dataValues.id, options);
-                    })
-                    .then(function (singleEntity) {
-                        var payload = singleEntity.toJSON();
-                        if(socketId && eventName !== undefined){
-                            var socket = io.sockets.in(socketId).sockets[socketId];
-                            socket.broadcast.emit(eventName, payload);
-                        }
-                        res.status(200).send(JSON.stringify(singleEntity));
                     });
             };
         },
@@ -53,30 +53,31 @@ module.exports = function(app) {
         },
         del: function(Entity, searchObj, securityFunctions, eventName){
             var entity;
+            console.log('Trying to remove');
             return function(req, res){
                 var socketId = req.headers.socketid;
                 Entity.find(searchObj)
                     .then(function(singleEntity){
                         if(singleEntity === null){
                             res.status(404).send();
-                            return false;
                         }
                         else{
                             if(securityFunctions && !securityCheck(securityFunctions, singleEntity)){
                                 return res.status(403);
                             }
                             entity = singleEntity.toJSON();
-                            return singleEntity.destroy();
+                            return singleEntity.destroy()
+                                .success(function(){
+                                    if(socketId && eventName !== undefined){
+                                        var socket = io.sockets.in(socketId).sockets[socketId];
+                                        socket.broadcast.emit(eventName, entity);
+                                    }
+                                    res.status(204).send();
+                                }).error(function(err){
+                                    res.status(500).send();
+                                });;
                         }
-                    })
-                    .then(function(){
-                        if(socketId && eventName !== undefined){
-                            var socket = io.sockets.in(socketId).sockets[socketId];
-                            socket.broadcast.emit(eventName, entity);
-                        }
-                        res.status(204).send();
-                    },function(err){
-                        console.log('Failed general delete with', err);
+                    }).error(function(err){
                         res.status(500).send();
                     });
             };
