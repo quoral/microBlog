@@ -7,6 +7,11 @@ define(['angular'], function(angular){
                 angular.extend(service.currentUser, user);
             }
         });
+        io.on('user:removed', function(user){
+            if(user.id === service.currentUser.id){
+                service.currentUser = {};
+            }
+        });
         var service = {
             currentUser: {},
             getUserInfo: function(forceReload){
