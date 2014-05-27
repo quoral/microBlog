@@ -7,6 +7,7 @@ define(['angular'], function(angular){
             users[user.id] = user;
         });
         io.on('user:modified', function(user){
+            console.log('wat');
             angular.extend(users[user.id], user);
         });
         io.on('user:removed', function(user){
@@ -62,7 +63,7 @@ define(['angular'], function(angular){
             put: function(id, postData){
                 return $http.put('rest/users/'+id, postData)
                     .then(function(data, status){
-                        angular.extend(service.posts[data.data.id], data.data);
+                        angular.extend(service.users[data.data.id], data.data);
                     });
             }
         };
