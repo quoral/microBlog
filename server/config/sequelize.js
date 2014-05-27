@@ -27,13 +27,22 @@ var walk = function(path){
 walk(modelsPath);
 
 // Create assocations
-module.exports.models.User.hasMany(module.exports.models.Post);
+module.exports.models.User.hasMany(module.exports.models.Post, {
+    foreignKeyConstraint: true,
+    onDelete: 'cascade'
+});
 module.exports.models.Post.belongsTo(module.exports.models.User);
 
-module.exports.models.User.hasMany(module.exports.models.Comment);
+module.exports.models.User.hasMany(module.exports.models.Comment, {
+        foreignKeyConstraint: true,
+        onDelete: 'cascade'
+    });
 module.exports.models.Comment.belongsTo(module.exports.models.User);
 
-module.exports.models.Post.hasMany(module.exports.models.Comment);
+module.exports.models.Post.hasMany(module.exports.models.Comment, {
+    foreignKeyConstraint: true,
+    onDelete: 'cascade'
+});
 module.exports.models.Comment.belongsTo(module.exports.models.Post);
 
 
