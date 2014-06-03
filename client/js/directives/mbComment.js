@@ -36,7 +36,7 @@ define(['angular'], function(angular){
                         }
                     );
                 };
-                $scope.date = new Date(Math.abs(new Date() - new Date($scope.comment.createdAt)));
+
                 $scope.editCancel = function(){
                     $scope.editToggle = false;
                     $scope.comment = angular.copy($scope.externalComment());

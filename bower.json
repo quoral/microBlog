@@ -12,7 +12,9 @@
     "angular-markdown-directive": "~0.3.0",
     "angularjs": "*",
     "jquery": "~2.1.1",
-    "socket.io-client": "~0.9.16"
+    "socket.io-client": "~0.9.16",
+    "moment": "~2.6.0",
+    "angular-moment": "~0.7.1"
   },
   "devDependencies": {
     "jasmine": "~2.0.0"

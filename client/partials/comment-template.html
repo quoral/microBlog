@@ -1,7 +1,7 @@
 <div class="content">
     <a class="ui green author">{{ comment.user.name }}</a>
     <div class="metadata">
-        <div class="date">{{ date | date:'HH:mm:ss'}} ago</div>
+        <div class="date">{{ comment.createdAt | amCalendar}}</div>
     </div>
     <div class="text" ng-show="!editToggle">{{comment.text}}</div>
     <form class="ui form" ng-if="editToggle" name="commentForm" novalidate>

@@ -9,7 +9,9 @@ require.config({
         angularSanitize: '../lib/angular-sanitize/angular-sanitize',
         showdown: '../lib/showdown/compressed/showdown',
         jquery: '../lib/jquery/dist/jquery.min',
-        semanticUi: '../lib/semantic-ui/build/packaged/javascript/semantic.min'
+        semanticUi: '../lib/semantic-ui/build/packaged/javascript/semantic.min',
+        moment: '../lib/moment/min/moment.min',
+        'angular-moment': '../lib/angular-moment/angular-moment.min'
     },
     shim: {
         'angular': {
@@ -36,7 +38,10 @@ require.config({
             'exports': 'socket.io'
         },
         jquery: {
-            'exports': 'jquery',
+            'exports': 'jquery'
+        },
+        'angular-moment': {
+            'deps': ['moment', 'angular']
         },
         semanticUi: {
             'exports': 'semanticUi',
