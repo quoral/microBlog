@@ -12,7 +12,7 @@
         <div class="ui black block header">
             {{post.header}}
         </div>
-        <div class="postText" btf-markdown="post.text">
+        <div class="postText" mb-markdown="post.text">
         </div>
         <div class="ui blue inverted segment" ng-if="post.createdAt && post.user">{{ post.user.name }} wrote on {{ post.createdAt | date:'medium' }}</div>
         <div class="ui comments" ng-if="post.comments">

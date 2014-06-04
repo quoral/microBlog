@@ -6,7 +6,6 @@ define([], function () {
                 function applyFunction(fn) {
                     return function () {
                         scope.$apply(function () {
-                            console.log('On hide here');
                             fn(scope);
                         });
                     };
@@ -29,7 +28,6 @@ define([], function () {
                 }
                 element.on('click', applyFunction(onHide));
                 attr.$observe('mbDimmer', function (value) {
-                    console.log(value);
                     showDimmer(value === 'true');
                 });
             }

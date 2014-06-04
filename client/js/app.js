@@ -5,10 +5,10 @@ define([
     'controllers',
     'config',
     'filters',
-    'angularMarkdownDirective',
+    'angularSanitize',
     'angular-moment',
     'angularRoute',
-], function(angular, services, directives, controllers, config, filters, angularMarkdownDirective,angularMoment ,angularRoute){
+], function(angular, services, directives, controllers, config, filters, sanitize,angularMoment ,angularRoute){
     'use strict';
     var app = angular.module('microBlog', [
         'ngRoute',
@@ -16,7 +16,7 @@ define([
         'microBlog.services',
         'microBlog.filters',
         'microBlog.directives',
-        'btford.markdown',
+        'ngSanitize',
         'angularMoment'
     ]);
     app.config(['$httpProvider',function($httpProvider) {

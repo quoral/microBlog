@@ -5,9 +5,9 @@ require.config({
         angularMocks: '../lib/angular-mocks/angular-mocks',
         'socket.io': '../lib/socket.io-client/dist/socket.io.min',
         text: '../lib/requirejs-text/text',
-        angularMarkdownDirective: '../lib/angular-markdown-directive/markdown',
         angularSanitize: '../lib/angular-sanitize/angular-sanitize',
-        showdown: '../lib/showdown/compressed/showdown',
+        marked: '../lib/marked/lib/marked',
+        highlightjs: '../lib/highlightjs/highlight.pack',
         jquery: '../lib/jquery/dist/jquery.min',
         semanticUi: '../lib/semantic-ui/build/packaged/javascript/semantic.min',
         moment: '../lib/moment/min/moment.min',
@@ -23,16 +23,9 @@ require.config({
             deps: ['angular'],
             'exports': 'angular.mock'
         },
-        'angularMarkdownDirective': {
-            deps: ['angularSanitize', 'showdown']
-        },
         'angularSanitize': {
             deps: ['angular'],
-
             exports: 'angular.sanitize'
-        },
-        'showdown': {
-            'exports': 'showdown'
         },
         'socket.io': {
             'exports': 'socket.io'
@@ -44,8 +37,10 @@ require.config({
             'deps': ['moment', 'angular']
         },
         semanticUi: {
-            'exports': 'semanticUi',
             deps: ['jquery']
+        },
+        highlightjs: {
+           exports: 'hljs'
         }
     },
     priority: [
